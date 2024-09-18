@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recipe App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+
+<body>
+    <nav>
+        <a href="{% url 'index' %}">Home</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'upload_recipe' %}">Upload Recipe</a>
+        <a href="{% url 'recipe_list' %}">My Recipes</a>
+        <a href="#" id="logout-link">Logout</a>
+        <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display:none;">
+            {% csrf_token %}
+        </form>
+        {% else %}
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <script >
+                document.getElementById('logout-link').addEventListener('click', function (e) {
+                    e.preventDefault();  // Prevent the default link behavior
+                document.getElementById('logout-form').submit();  // Submit the form
+    });
+    </script>
+</body>
+
+</html>
