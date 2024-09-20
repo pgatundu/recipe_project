@@ -1,22 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>My Recipes</h2>
-<ul>
-    {% for recipe in recipes %}
-    <li>
-        <strong>Title:</strong><br>{{ recipe.title }}<br>
-        <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
-        <strong>Description:</strong><br>{{ recipe.description }}<br>
-        <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
+<div>
+    <ul id="recipe-list">
+        {% for recipe in page_obj %}
+        <li>
+            <strong>Title:</strong><br>{{ recipe.title }}<br>
+            <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
+            <strong>Description:</strong><br>{{ recipe.description }}<br>
+            <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
+    
+            <form action="{% url 'delete_recipe' recipe.id %}" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        <hr>
+        {% endfor %}
+    </ul>
 
-        <form action="{% url 'delete_recipe' recipe.id %}" method="POST"
-            onsubmit="return confirm('Are you sure you want to delete this recipe?');">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-    <hr>
-    {% endfor %}
-</ul>
+</div>
+
+<!-- Pagination controls -->
+<div id="pagination-controls">
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <button onclick="goToPage({{ page_obj.previous_page_number }})">Previous</button>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <button class="active">{{ num }}</button>
+        {% else %}
+        <button onclick="goToPage({{ num }})">{{ num }}</button>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <button onclick="goToPage({{ page_obj.next_page_number }})">Next</button>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

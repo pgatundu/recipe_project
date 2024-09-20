@@ -6,7 +6,7 @@ from .models import Recipe
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
-
+from django.core.paginator import Paginator
 
 
 
@@ -35,7 +35,13 @@ def upload_recipe(request):
 @login_required
 def recipe_list(request):
     recipes = Recipe.objects.filter(user=request.user)
-    return render(request, 'recipe_list.html', {'recipes': recipes})
+     # Paginate the recipes, 5 per page
+    paginator = Paginator(recipes, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'recipe_list.html', {'page_obj': page_obj})
+
 
 def register(request):
     if request.method == 'POST':
@@ -50,16 +56,21 @@ def register(request):
 
 def search_recipes(request):
     ingredient = request.GET.get('ingredient', '')
-    recipes = []
-    if ingredient:
-        # Filter recipes by ingredients (case-insensitive)
-        recipes = Recipe.objects.filter(ingredients__icontains=ingredient)
-    
-    context = {
-        'recipes': recipes,
-        'ingredient': ingredient
-    }
-    return render(request, 'search.html', context)
+    recipes = Recipe.objects.filter(ingredients__icontains=ingredient)
+
+    # Paginate the results
+    paginator = Paginator(recipes, 5)  # Show 5 recipes per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    results = [{'title': recipe.title, 'ingredients': recipe.ingredients,
+                'description': recipe.description, 'instructions': recipe.instructions}
+               for recipe in page_obj]
+
+    return render(request, 'search.html', {
+        'recipes': results,
+        'page_obj': page_obj,  
+    })
 
 @login_required
 def delete_recipe(request, recipe_id):

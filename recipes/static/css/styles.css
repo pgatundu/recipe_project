@@ -307,3 +307,80 @@ li p {
     padding: 5px 0;
     font-size: 0.95em;
 }
+
+#pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination {
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.pagination button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+.pagination button:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+}
+
+.pagination button.active {
+    background-color: #333;
+    /* Dark background for active page */
+    font-weight: bold;
+    /* Bold text for active page */
+}
+
+.pagination button:disabled {
+    background-color: #c0c0c0;
+    /* Grey out disabled buttons */
+    cursor: not-allowed;
+    /* Not allowed cursor */
+}
+
+.pagination span {
+    margin: 0 10px;
+    /* Space around page numbers */
+    font-weight: bold;
+    /* Bold text */
+    font-size: 18px;
+    /* Larger font size for clarity */
+    color: #555;
+    /* Darker color for text */
+}
+
+.pagination a {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+.pagination a:hover {
+    background-color: #1feb29;      
+    transform: translateY(-2px);
+}
+
