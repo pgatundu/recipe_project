@@ -1,6 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Recipe(models.Model):
+    title = models.CharField(max_length=255)
+    ingredients = models.TextField()
+    description = models.TextField()
+    instructions = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')  # to associate recipes with a user
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -10,12 +21,4 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-class Recipe(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField(default="")
-    ingredients = models.TextField()
-    instructions = models.TextField()
 
-    def __str__(self):
-        return self.title

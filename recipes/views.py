@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import RecipeForm
@@ -6,6 +6,7 @@ from .models import Recipe
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+
 
 
 
@@ -49,20 +50,19 @@ def register(request):
 
 def search_recipes(request):
     ingredient = request.GET.get('ingredient', '')
+    recipes = []
     if ingredient:
-        # Assuming your model has an 'ingredients' field
+        # Filter recipes by ingredients (case-insensitive)
         recipes = Recipe.objects.filter(ingredients__icontains=ingredient)
-        results = [{'title': recipe.title, 'description': recipe.description} for recipe in recipes]
-    else:
-        results = []
+    
+    context = {
+        'recipes': recipes,
+        'ingredient': ingredient
+    }
+    return render(request, 'search.html', context)
 
-    return JsonResponse(results, safe=False)
-
-def some_view(request):
-    if request.user.is_authenticated:
-        try:
-            profile = request.user.profile
-        except Profile.DoesNotExist:
-            # Handle the case where the profile doesn't exist
-            profile = None
-    # Continue with the rest of the view
+@login_required
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id, user=request.user)
+    recipe.delete()
+    return redirect('recipe_list')

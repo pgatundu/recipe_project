@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipe Search{% endblock %}
+
+{% block content %}
+<!-- Display search results -->
+<div id="search-results">
+    {% if recipes %}
+    <h2>Recipes Found:</h2>
+    <ul>
+        {% for recipe in recipes %}
+        <li>
+            <h3>{{ recipe.title }}</h3>
+            <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+            <p><strong>Description:</strong> {{ recipe.description }}</p>
+            <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    {% if request.GET.ingredient %}
+    <p>No recipes found for "{{ request.GET.ingredient }}".</p>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

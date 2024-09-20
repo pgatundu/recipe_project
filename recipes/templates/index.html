@@ -1,51 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}Recipe Search{% endblock %}
 
 {% block content %}
 <h1>Search Recipes</h1>
 
-<!-- Search form -->
-<form id="search-form" method="GET">
-    <input type="text" id="search-input" name="ingredient" placeholder="Search by ingredient..." autocomplete="off">
+<!-- Search form using Django GET method -->
+<form method="GET" action="{% url 'search_recipes' %}">
+    <input type="text" name="ingredient" placeholder="Search by ingredient..." autocomplete="off"
+        value="{{ request.GET.ingredient }}">
     <button type="submit">Search</button>
 </form>
 
-<!-- Results will be displayed here -->
-<div id="search-results"></div>
-
 {% endblock %}
-
-<script>
-    document.getElementById('search-form').addEventListener('submit', function (e) {
-        e.preventDefault();  // Prevent form submission
-
-        const searchInput = document.getElementById('search-input').value;
-        const resultsContainer = document.getElementById('search-results');
-
-        // Make an AJAX request to the server
-        fetch(`{% url 'search_recipes' %}?ingredient=${searchInput}`)
-            .then(response => response.json())
-            .then(data => {
-                // Clear the previous results
-                resultsContainer.innerHTML = '';
-
-                // Check if any results were returned
-                if (data.length > 0) {
-                    // Display the results
-                    data.forEach(recipe => {
-                        const recipeElement = document.createElement('div');
-                        recipeElement.innerHTML = `<h3>${recipe.title}</h3><p>${recipe.description}</p>`;
-                        resultsContainer.appendChild(recipeElement);
-                    });
-                } else {
-                    resultsContainer.innerHTML = '<p>No recipes found.</p>';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching recipes:', error);
-                resultsContainer.innerHTML = '<p>There was an error processing your request. Please try again.</p>';
-            });
-    });
-</script>
