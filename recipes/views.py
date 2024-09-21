@@ -78,27 +78,12 @@ def search_recipes(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    results = []
-    for recipe in page_obj:
-        # Get the user's rating if available
-        user_rating = RecipeRating.objects.filter(recipe=recipe, user=request.user).first()
-        user_rating_value = user_rating.rating if user_rating else 0
-        results.append({
-            'id': recipe.id,
-            'title': recipe.title,
-            'ingredients': recipe.ingredients,
-            'description': recipe.description,
-            'instructions': recipe.instructions,
-            'average_rating': recipe.average_rating,
-            'user_rating': user_rating_value,
-        })
-
+    
     return render(request, 'search.html', {
-        'recipes': results,
+        'recipes': page_obj,
         'page_obj': page_obj,
     })
 
-from django.http import JsonResponse
 
 def rate_recipe(request, recipe_id):
     if request.method == 'POST':

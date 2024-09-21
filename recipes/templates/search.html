@@ -21,7 +21,14 @@
                     data-value="{{ star }}"></i>
                 {% endfor %}
             </div>
+
             <p>Average Rating: <span class="average-rating">{{ recipe.average_rating|default:0 }}</span></p>
+
+            {% if user.is_authenticated %}
+            <p>You can rate this recipe!</p>
+            {% else %}
+            <p>You must be logged in to rate this recipe.</p>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
