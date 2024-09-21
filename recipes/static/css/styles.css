@@ -384,3 +384,21 @@ li p {
     transform: translateY(-2px);
 }
 
+
+.rating {
+    cursor: pointer;
+}
+
+.rating .fa-star {
+    font-size: 24px;
+    /* Adjust size as needed */
+    color: gray;
+    /* Default color */
+    transition: color 0.2s;
+    /* Smooth transition */
+}
+
+.rating .fa-star.gold {
+    color: gold;
+    /* Color when rated */
+}

@@ -2,15 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=200)
     ingredients = models.TextField()
     description = models.TextField()
     instructions = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')  # to associate recipes with a user
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    average_rating = models.FloatField(default=0.0)
 
-    def __str__(self):
-        return self.title
+class RecipeRating(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='reciperating')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField()
 
 
 class Profile(models.Model):

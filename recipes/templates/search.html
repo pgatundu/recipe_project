@@ -3,7 +3,6 @@
 {% block title %}Recipe Search{% endblock %}
 
 {% block content %}
-<!-- Display search results -->
 <div id="search-results">
     {% if recipes %}
     <h2>Recipes Found:</h2>
@@ -14,37 +13,20 @@
             <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
             <p><strong>Description:</strong> {{ recipe.description }}</p>
             <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+
+            <!-- Star rating system -->
+            <div class="rating" data-recipe-id="{{ recipe.id }}">
+                {% for star in "12345" %}
+                <i class="fa fa-star{% if recipe.average_rating and recipe.average_rating >= star %} gold{% endif %}"
+                    data-value="{{ star }}"></i>
+                {% endfor %}
+            </div>
+            <p>Average Rating: <span class="average-rating">{{ recipe.average_rating|default:0 }}</span></p>
         </li>
         {% endfor %}
     </ul>
-
-<!-- Pagination Controls -->
-<div id="pagination-controls">
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-        <a href="?ingredient={{ request.GET.ingredient }}&page={{ page_obj.previous_page_number }}"
-            class="button">Previous</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-        <button class="active">{{ num }}</button>
-        {% else %}
-        <button onclick="goToPage({{ num }})">{{ num }}</button>
-        {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-        <a href="?ingredient={{ request.GET.ingredient }}&page={{ page_obj.next_page_number }}" class="button">Next</a>
-        {% endif %}
-    </div>
-</div>
-
-
     {% else %}
-    {% if request.GET.ingredient %}
-    <p>No recipes found for "{{ request.GET.ingredient }}".</p>
-    {% endif %}
+    <p>No recipes found.</p>
     {% endif %}
 </div>
 {% endblock %}
