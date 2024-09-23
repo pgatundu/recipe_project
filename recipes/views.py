@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import RecipeForm
+from .forms import RecipeForm,ProfileForm
 from .models import Recipe, RecipeRating
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -9,13 +9,53 @@ from .models import Profile
 from django.core.paginator import Paginator
 import json
 from django.db import models
-
+from django.views import View
 
 def index(request):
     return render(request, 'index.html')
 
+
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == "POST":
+        new_bio = request.POST.get('bio')
+        if new_bio:  # If a new bio is provided, update it
+            profile.bio = new_bio
+            profile.save()
+        return redirect('profile')  # Refresh the page after saving
+
+    return render(request, 'profile.html', {
+        'profile': profile
+    })
+
+@login_required
+def profile_view(request):
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        bio = request.POST.get('bio')
+        if 'photo' in request.FILES:
+            profile.photo = request.FILES['photo']
+        profile.bio = bio
+        profile.save()
+        return redirect('profile')  # Redirect to profile page after saving
+
+    return render(request, 'profile.html', {'profile': profile})
+
+@login_required
+def delete_profile(request):
+    return render(request, 'delete_profile.html')
+
+@login_required
+def confirm_delete_profile(request):
+    if request.method == 'POST':
+        profile = request.user.profile
+        profile.delete()
+        # Optionally, delete the user account as well
+        # request.user.delete()
+        return redirect('index')
 
 
 
@@ -49,6 +89,22 @@ def recipe_list(request):
 
     return render(request, 'recipe_list.html', {'page_obj': page_obj})
 
+def edit_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    # Check if the recipe belongs to the logged-in user
+    if recipe.user != request.user:
+        return redirect('recipe_list')  # or raise permission error
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_list')  # Redirect after saving
+    else:
+        form = RecipeForm(instance=recipe)  # Load existing recipe data
+
+    return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
 
 def register(request):
     if request.method == 'POST':
@@ -120,7 +176,34 @@ def recipe_detail(request, recipe_id):
     })
 
 @login_required
+
 def delete_recipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id, user=request.user)
+    recipe = get_object_or_404(Recipe,id=recipe_id,user=request.user)
     recipe.delete()
     return redirect('recipe_list')
+
+@login_required
+def edit_profile(request):
+    user_profile = request.user.profile
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to the profile page after saving
+    
+    return render(request, 'profile.html', {'form': form})
+
+class DeleteProfileView(View):
+    def get(self, request):
+        return render(request, 'delete_profile.html')
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            user_profile = request.user.profile
+            user_profile.delete()  # Deletes the Profile instance
+            request.user.delete()  # Deletes the User instance
+            logout(request)  # Log out the user
+            return redirect('register')  # Redirect to the registration page
+        return redirect('profile')
+

@@ -25,6 +25,9 @@ This project is a recipe management application that allows users to upload reci
     ```bash
     pip install -r requirements.txt
     ```
+    ```bash
+    python -m pip install Pillow
+    ```
 
 2. Apply migrations:
 

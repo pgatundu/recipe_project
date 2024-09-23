@@ -18,9 +18,10 @@ class RecipeRating(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    # Add any other fields you need for a profile
+    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.user.username
 
 

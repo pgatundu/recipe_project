@@ -9,12 +9,19 @@
             <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
             <strong>Description:</strong><br>{{ recipe.description }}<br>
             <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
-    
-            <form action="{% url 'delete_recipe' recipe.id %}" method="POST"
-                onsubmit="return confirm('Are you sure you want to delete this recipe?');">
-                {% csrf_token %}
-                <button type="submit">Delete</button>
-            </form>
+
+            <!-- Edit button -->
+            
+            {% if recipe.user == user %}
+            <div class="button-group">
+                <a href="{% url 'edit_recipe' recipe.id %}" class="button">Edit</a>
+                <form action="{% url 'delete_recipe' recipe.id %}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+            {% endif %}
         </li>
         <hr>
         {% endfor %}

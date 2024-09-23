@@ -14,6 +14,11 @@
             <p><strong>Description:</strong> {{ recipe.description }}</p>
             <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
 
+            {% if user.is_authenticated and recipe.user == user %}
+
+            <p>Your recipe's average rating: <strong>{{ recipe.average_rating|default:0 }}</strong></p>
+            {% else %}
+            
             <!-- Star rating system -->
             <div class="rating" data-recipe-id="{{ recipe.id }}">
                 {% for star in "12345" %}
@@ -21,13 +26,12 @@
                     data-value="{{ star }}"></i>
                 {% endfor %}
             </div>
-
             <p>Average Rating: <span class="average-rating">{{ recipe.average_rating|default:0 }}</span></p>
-
             {% if user.is_authenticated %}
             <p>You can rate this recipe!</p>
             {% else %}
             <p>You must be logged in to rate this recipe.</p>
+            {% endif %}
             {% endif %}
         </li>
         {% endfor %}

@@ -18,7 +18,7 @@ nav {
     background: #333;
     color: #fff;
     padding: 10px 0;
-    text-align: center;
+    text-align: left;
 }
 
 nav a {
@@ -75,7 +75,7 @@ main {
 
 #search-form button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     border-radius: 4px;
     background-color: #333;
@@ -257,17 +257,21 @@ form select:focus {
     outline: none;
 }
 
+
 button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #141516;
-    color: white;
+    background-color: #383636;
     border: none;
-    border-radius: 4px;
-    font-size: 18px;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 10px;
 }
+
+
+
 
 @media (max-width: 768px) {
     h2 {
@@ -401,4 +405,57 @@ li p {
 .rating .fa-star.gold {
     color: gold;
     /* Color when rated */
+}
+
+
+/* Container for buttons */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Aligns buttons to the left */
+    margin-top: 10px;
+}
+
+/* Edit button styles */
+.button-group .button {
+    background-color: #377c39;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 75px;
+}
+
+/* Hover effect for Edit button */
+.button-group .button:hover {
+    background-color: #4fe754;
+    transform: scale(1.05);
+}
+
+/* Delete button styles */
+.button-group .delete-button {
+    background-color: #ed8d8d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    width: 75px;
+
+}
+
+/* Hover effect for Delete button */
+.button-group .delete-button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
 }
