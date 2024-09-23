@@ -207,3 +207,11 @@ class DeleteProfileView(View):
             return redirect('register')  # Redirect to the registration page
         return redirect('profile')
 
+def update_bio(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        bio = request.POST.get('bio')
+        profile = request.user.profile
+        profile.bio = bio
+        profile.save()
+        return redirect('profile')
+    return redirect('profile')

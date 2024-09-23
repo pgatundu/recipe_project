@@ -18,7 +18,7 @@
 
 <!-- Hidden Edit Bio Form -->
 <div id="edit-bio-form" style="display: none;">
-    <form method="post">
+    <form method="post" action="{% url 'update_bio' %}">
         {% csrf_token %}
         <label for="bio">Edit Bio:</label>
         <textarea name="bio" id="bio" rows="4">{{ profile.bio }}</textarea>
@@ -31,9 +31,9 @@
 <button id="edit-bio-btn">Edit Bio</button>
 
 <!-- Delete Profile Form -->
-<form action="{% url 'delete_profile' %}" method="post" style="margin-top: 20px;">
+<form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post" style="margin-top: 20px;">
     {% csrf_token %}
-    <button type="submit">Delete Profile</button>
+    <button type="button" id="delete-profile-btn">Delete Profile</button>
 </form>
 
 <!-- JavaScript Section -->
@@ -43,6 +43,8 @@
         const editBioForm = document.getElementById('edit-bio-form');
         const cancelBioButton = document.getElementById('cancel-bio-btn');
         const bioDisplay = document.getElementById('bio-display');
+        const deleteProfileButton = document.getElementById('delete-profile-btn');
+        const deleteProfileForm = document.getElementById('delete-profile-form');
 
         // Show the form and hide the "Edit Bio" button when "Edit Bio" is clicked
         editBioButton.addEventListener('click', function () {
@@ -56,6 +58,13 @@
             editBioForm.style.display = 'none';
             editBioButton.style.display = 'block';
             bioDisplay.style.display = 'block';
+        });
+
+        // Confirm deletion of profile
+        deleteProfileButton.addEventListener('click', function () {
+            if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+                deleteProfileForm.submit();  // Submit the form if confirmed
+            }
         });
     });
 </script>
