@@ -16,6 +16,7 @@ def index(request):
 
 
 @login_required
+@login_required
 def profile(request):
     profile = Profile.objects.get(user=request.user)
 
@@ -33,16 +34,15 @@ def profile(request):
 @login_required
 def profile_view(request):
     profile = request.user.profile
-
     if request.method == 'POST':
-        bio = request.POST.get('bio')
-        if 'photo' in request.FILES:
-            profile.photo = request.FILES['photo']
-        profile.bio = bio
-        profile.save()
-        return redirect('profile')  # Redirect to profile page after saving
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
 
-    return render(request, 'profile.html', {'profile': profile})
+    return render(request, 'profile.html', {'form': form, 'profile': profile})
 
 @login_required
 def delete_profile(request):
@@ -108,14 +108,20 @@ def edit_recipe(request, recipe_id):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log the user in after registration
-            return redirect('profile')  # Redirect to profile or another page
+        user_form = UserCreationForm(request.POST)  # Assuming you're using UserCreationForm
+        email = request.POST.get('email')  # Get the email from the POST data
+        
+        if user_form.is_valid():
+            user = user_form.save()
+            # Create the Profile instance for the user and save the email
+            Profile.objects.create(user=user, email=email)
+            login(request, user)  # Automatically log in the user after registration
+            return redirect('profile')  # Redirect to the profile page
+
     else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        user_form = UserCreationForm()
+    
+    return render(request, 'register.html', {'form': user_form})
 
 def get_user_rating_for_recipe(user, recipe):
     try:
@@ -190,9 +196,15 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')  # Redirect to the profile page after saving
-    
-    return render(request, 'profile.html', {'form': form})
+            return redirect('profile')  # Redirect to profile after saving
+    else:
+        form = ProfileForm(instance=user_profile)
+
+    return render(request, 'profile.html', {
+        'profile': user_profile,  # Pass the profile object for displaying
+        'form': form,
+    })
+
 
 class DeleteProfileView(View):
     def get(self, request):
@@ -215,3 +227,12 @@ def update_bio(request):
         profile.save()
         return redirect('profile')
     return redirect('profile')
+
+@login_required
+def delete_profile_photo(request):
+    if request.method == "POST":
+        profile = request.user.profile
+        profile.photo.delete(save=False)  # Delete the photo file
+        profile.photo = None  # Clear the photo field
+        profile.save()  # Save the profile changes
+        return redirect('profile') 

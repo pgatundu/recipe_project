@@ -270,9 +270,6 @@ button[type="submit"] {
     box-shadow: 10px;
 }
 
-
-
-
 @media (max-width: 768px) {
     h2 {
         font-size: 20px;
@@ -322,7 +319,6 @@ li p {
 .pagination {
     display: flex;
     gap: 10px;
-    /* Space between buttons */
 }
 
 .pagination button {
@@ -340,34 +336,24 @@ li p {
 
 .pagination button:hover {
     background-color: #45a049;
-    /* Darker green on hover */
     transform: translateY(-2px);
-    /* Slight lift effect */
 }
 
 .pagination button.active {
     background-color: #333;
-    /* Dark background for active page */
     font-weight: bold;
-    /* Bold text for active page */
 }
 
 .pagination button:disabled {
     background-color: #c0c0c0;
-    /* Grey out disabled buttons */
     cursor: not-allowed;
-    /* Not allowed cursor */
 }
 
 .pagination span {
     margin: 0 10px;
-    /* Space around page numbers */
     font-weight: bold;
-    /* Bold text */
     font-size: 18px;
-    /* Larger font size for clarity */
     color: #555;
-    /* Darker color for text */
 }
 
 .pagination a {
@@ -454,8 +440,173 @@ li p {
 
 }
 
-/* Hover effect for Delete button */
-.button-group .delete-button:hover {
-    background-color: #cc0000;
-    transform: scale(1.05);
+#profile-photo-container {
+    float: left;
+    margin-right: 20px;
+}
+
+#profile-photo-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#bio-display {
+    overflow: hidden;
+}
+
+#bio-display {
+    overflow-wrap: break-word;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+#edit-bio-form textarea {
+    width: 100%;
+    max-width: 1000px;
+    max-height: 400px;
+    box-sizing: border-box;
+}
+#delete-profile-btn {
+    padding: 10px 10px;
+    width: 120px;
+    align-items: left;
+    border: none;
+    border-radius: 5px;
+    color: rgb(18, 17, 17);
+    background-color: rgb(185, 184, 184);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+#delete-profile-form {
+    opacity: 1;
+    text-align: left;
+    margin-left: 0;}
+
+#delete-profile-btn:hover {
+    opacity:0.9;
+    background-color: red;
+    
+}
+/* Profile Photo */
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Edit Bio Form */
+#edit-bio-form {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Delete Profile Form */
+#delete-profile-form {
+    margin-top: 20px;
+}
+
+/* Textarea Styles */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+    
+}
+
+
+#cancel-bio-btn {
+    background-color: #f44336;
+    
+}
+
+#cancel-bio-btn:hover {
+    background-color: #e53935;
+    
+}
+
+#delete-profile-form {
+    margin-top: 100px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+   
+}
+.profile-photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.delete-photo-form {
+    display: none;
+    position: absolute;   
+    top: 1px;
+    right: 1px;
+}
+
+.profile-photo-wrapper:hover .delete-photo-form {
+    display: block;
+    
+}
+
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.delete-photo-form {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color:transparent;
+    border: none;
+    box-shadow: none;
+    z-index: 10;
+}
+
+#delete-profile-photo-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 12px;
+    cursor: pointer;
+    width: 80px;
+}
+
+#delete-profile-photo-btn:hover {
+    background-color: #e53935;
 }

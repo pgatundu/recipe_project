@@ -6,32 +6,54 @@
 <h1>Profile</h1>
 <p>Welcome, {{ user.username }}!</p>
 
-<!-- Display Profile Photo if exists -->
-{% if profile.photo %}
-<img src="{{ profile.photo.url }}" alt="Profile Photo" style="width:150px; height:auto;">
-{% else %}
-<p>No profile photo available.</p>
-{% endif %}
+<!-- Display Profile Photo -->
+<div id="profile-photo-container">
+    {% if profile.photo %}
+    <div class="profile-photo-wrapper">
+        <img src="{{ profile.photo.url }}" alt="Profile Photo" class="profile-photo">
+        
+        <form id="delete-profile-photo-form" action="{% url 'delete_profile_photo' %}" method="post"
+            class="delete-photo-form">
+            {% csrf_token %}
+            <button type="button" id="delete-profile-photo-btn">Delete Photo</button>
+        </form>
+    </div>
+    {% else %}
+    <p>No profile photo available.</p>
+    {% endif %}
+</div>
+
+<!-- Display Email -->
+<p><strong>Email: {{ profile.email|default:"No email provided." }}</strong></p>
 
 <!-- Display Bio -->
-<p id="bio-display">Bio: {{ profile.bio|default:"No bio available yet." }}</p>
+<p id="bio-display"><strong>Bio</strong>: {{ profile.bio|default:"No bio available yet." }}</p>
 
-<!-- Hidden Edit Bio Form -->
-<div id="edit-bio-form" style="display: none;">
-    <form method="post" action="{% url 'update_bio' %}">
+<!-- Hidden Edit Bio and Upload Photo Form -->
+<div id="edit-bio-form">
+    <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="bio">Edit Bio:</label>
         <textarea name="bio" id="bio" rows="4">{{ profile.bio }}</textarea>
-        <button type="submit">Save Bio</button>
+
+        <!-- Email input field -->
+        <label for="email">Add Email (optional):</label>
+        <input type="email" name="email" id="email" value="{{ profile.email }}">
+
+        <!-- Upload Photo -->
+        <label for="photo">Upload Profile Photo:</label>
+        <input type="file" name="photo" id="photo" accept="image/*">
+
+        <button type="submit">Save Changes</button>
         <button type="button" id="cancel-bio-btn">Cancel</button>
     </form>
 </div>
 
 <!-- Edit Bio Button -->
-<button id="edit-bio-btn">Edit Bio</button>
+<button id="edit-bio-btn">Add Bio</button>
 
-<!-- Delete Profile Form -->
-<form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post" style="margin-top: 20px;">
+<!-- Delete Profile Button -->
+<form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post">
     {% csrf_token %}
     <button type="button" id="delete-profile-btn">Delete Profile</button>
 </form>
@@ -45,8 +67,10 @@
         const bioDisplay = document.getElementById('bio-display');
         const deleteProfileButton = document.getElementById('delete-profile-btn');
         const deleteProfileForm = document.getElementById('delete-profile-form');
+        const deleteProfilePhotoButton = document.getElementById('delete-profile-photo-btn');
+        const deleteProfilePhotoForm = document.getElementById('delete-profile-photo-form');
 
-        // Show the form and hide the "Edit Bio" button when "Edit Bio" is clicked
+        // Show the form and hide the "Edit Bio" button when clicked
         editBioButton.addEventListener('click', function () {
             editBioButton.style.display = 'none';
             bioDisplay.style.display = 'none';
@@ -65,6 +89,21 @@
             if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
                 deleteProfileForm.submit();  // Submit the form if confirmed
             }
+        });
+
+        // Confirm deletion of profile photo
+        deleteProfilePhotoButton.addEventListener('click', function () {
+            if (confirm("Are you sure you want to delete your profile photo? This action cannot be undone.")) {
+                deleteProfilePhotoForm.submit();  // Submit the form if confirmed
+            }
+        });
+
+        // Show/hide the delete photo button
+        const threeDotsMenu = document.querySelector('.three-dots-menu');
+        const deletePhotoForm = document.querySelector('.delete-photo-form');
+
+        threeDotsMenu.addEventListener('click', function () {
+            deletePhotoForm.style.display = deletePhotoForm.style.display === 'block' ? 'none' : 'block';
         });
     });
 </script>

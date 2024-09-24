@@ -16,7 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'photo']  # Include optional fields like 'photo' here
+        fields = ['bio', 'photo','email']  # Include optional fields like 'photo' here
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself...'}),
         }
