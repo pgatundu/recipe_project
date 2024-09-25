@@ -7,7 +7,12 @@ class Recipe(models.Model):
     description = models.TextField()
     instructions = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    food_photo = models.ImageField(upload_to='food_photos/', blank=True, null=True)
     average_rating = models.FloatField(default=0.0)
+
+class FoodPhoto(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='photos', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='food_photos/')
 
 class RecipeRating(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='reciperating')

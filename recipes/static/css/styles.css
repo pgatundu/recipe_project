@@ -426,19 +426,7 @@ li p {
 }
 
 /* Delete button styles */
-.button-group .delete-button {
-    background-color: #ed8d8d;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-    width: 75px;
 
-}
 
 #profile-photo-container {
     float: left;
@@ -595,18 +583,67 @@ button:hover {
     box-shadow: none;
     z-index: 10;
 }
+/* General styles for dropdown items */
+.dropdown-item {
+    display: block;
+    padding: 10px;
+    margin-top: 0;
+    margin: 0;
+    text-align: center;
+    border: 10px;
+   
+}
+.btn-danger{
+    color: red;
+}
 
-#delete-profile-photo-btn {
-    background-color: #f44336;
+
+/* Specific hover effects for Edit */
+.btn-action[href*="edit_recipe"] {
+    color: green;
+    font-size: 20px;
+    font: weight 100px;;
+}
+.btn-danger:has(button[type="submit"]):hover {
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 5px;
-    font-size: 12px;
-    cursor: pointer;
-    width: 80px;
+    background-color: red;
+    }
+
+.btn-action[href*="edit_recipe"]:hover {
+    color: white;
+    background-color: green;
 }
 
-#delete-profile-photo-btn:hover {
-    background-color: #e53935;
+/* General styling for the food photo wrapper */
+.food-photo-wrapper {
+    display: flex;
+    /* Use flexbox for better alignment */
+    justify-content: left;
+    /* Center the image horizontally */
+    margin: 10px;
+    /* Space around the image */
 }
+
+/* Styling for the food photo */
+.food-photo {
+    max-width: 50%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Add some styles to the recipe list for better layout */
+#search-results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#search-results li {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    
+}
+
+

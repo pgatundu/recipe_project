@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import RecipeForm,ProfileForm
+from .forms import RecipeForm,ProfileForm, FoodPhotoForm
 from .models import Recipe, RecipeRating
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -10,6 +10,9 @@ from django.core.paginator import Paginator
 import json
 from django.db import models
 from django.views import View
+from .models import Recipe, FoodPhoto
+from django.forms import modelformset_factory
+
 
 def index(request):
     return render(request, 'index.html')
@@ -58,19 +61,37 @@ def confirm_delete_profile(request):
         return redirect('index')
 
 
-
 @login_required
 def upload_recipe(request):
+    # Create a formset for FoodPhoto
+    FoodPhotoFormSet = modelformset_factory(FoodPhoto, fields=('image',), extra=5)  # You can set 'extra' to the number of photo inputs you want
+
     if request.method == 'POST':
         form = RecipeForm(request.POST)
-        if form.is_valid():
+        photo_formset = FoodPhotoFormSet(request.POST, request.FILES, queryset=FoodPhoto.objects.none())
+
+        if form.is_valid() and photo_formset.is_valid():
             recipe = form.save(commit=False)
             recipe.user = request.user  # Assign the current user to the recipe
             recipe.save()
+
+            # Save each photo
+            for photo_form in photo_formset:
+                if photo_form.cleaned_data:  # Only save if there is valid data
+                    photo = photo_form.save(commit=False)
+                    photo.recipe = recipe  # Associate the photo with the recipe
+                    photo.save()
+
             return redirect('recipe_list')  # Redirect to a page after saving
     else:
         form = RecipeForm()
-    return render(request, 'upload_recipe.html', {'form': form})
+        photo_formset = FoodPhotoFormSet(queryset=FoodPhoto.objects.none())  # Initialize an empty formset
+
+    return render(request, 'upload_recipe.html', {
+        'form': form,
+        'photo_formset': photo_formset,
+    })
+
 
 @login_required
 def recipe_list(request):
@@ -236,3 +257,23 @@ def delete_profile_photo(request):
         profile.photo = None  # Clear the photo field
         profile.save()  # Save the profile changes
         return redirect('profile') 
+    
+@login_required
+def upload_food_photo(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    
+    if request.method == 'POST':
+        form = FoodPhotoForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            # Manually handle multiple file uploads
+            images = request.FILES.getlist('image')  # Get the list of uploaded images
+            for image in images:
+                FoodPhoto.objects.create(recipe=recipe, image=image)  # Save each image linked to the recipe
+                
+            return redirect('recipe_list')  # Redirect after successful upload
+
+    else:
+        form = FoodPhotoForm()
+
+    return render(request, 'upload_food_photo.html', {'form': form, 'recipe': recipe})

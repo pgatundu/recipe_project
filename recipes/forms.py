@@ -1,5 +1,5 @@
 from django import forms
-from .models import Recipe, Profile
+from .models import Recipe, Profile, FoodPhoto
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -20,3 +20,8 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself...'}),
         }
+
+class FoodPhotoForm(forms.ModelForm):
+    class Meta:
+        model = FoodPhoto
+        fields = ['image'] 

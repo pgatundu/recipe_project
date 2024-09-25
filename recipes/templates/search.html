@@ -10,15 +10,23 @@
         {% for recipe in recipes %}
         <li>
             <h3>{{ recipe.title }}</h3>
+
+            <!-- Loop through all food photos if available -->
+            {% if recipe.photos.exists %}
+            <div class="food-photo-wrapper">
+                {% for photo in recipe.photos.all %}
+                <img src="{{ photo.image.url }}" alt="{{ recipe.title }} Photo" class="food-photo">
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
             <p><strong>Description:</strong> {{ recipe.description }}</p>
             <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
 
             {% if user.is_authenticated and recipe.user == user %}
-
             <p>Your recipe's average rating: <strong>{{ recipe.average_rating|default:0 }}</strong></p>
             {% else %}
-            
             <!-- Star rating system -->
             <div class="rating" data-recipe-id="{{ recipe.id }}">
                 {% for star in "12345" %}
@@ -40,4 +48,33 @@
     <p>No recipes found.</p>
     {% endif %}
 </div>
+
+<!-- User Profile Display -->
+<div id="user-profile">
+    {% if recipes %}
+    <h4>Recipe Uploaded By:</h4>
+    <div class="profile">
+        {% with profile_displayed=False %}
+        {% for recipe in recipes %}
+        {% if recipe.user and not profile_displayed %}
+        <div class="profile-info">
+            <!-- Display Profile Photo -->
+            {% if recipe.user.profile.photo %}
+            <div class="profile-photo-wrapper">
+                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
+            </div>
+            {% endif %}
+            <p><strong>Name:</strong> {{ recipe.user.username }}</p>
+            <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>
+            <p><strong>Bio:</strong> {{ recipe.user.profile.bio|default:"No bio available yet." }}</p>
+        </div>
+        {% with profile_displayed=True %}
+        {% endwith %}
+        {% endif %}
+        {% endfor %}
+        {% endwith %}
+    </div>
+    {% endif %}
+</div>
+
 {% endblock %}

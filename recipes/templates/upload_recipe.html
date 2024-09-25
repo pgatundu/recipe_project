@@ -2,9 +2,18 @@
 
 {% block content %}
 <h2>Upload Recipe</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+
+    <h4>Upload Food Photos:</h4>
+    {{ photo_formset.management_form }} <!-- Management form for the formset -->
+    {% for form in photo_formset %}
+    <div class="photo-upload">
+        {{ form.image.label }} {{ form.image }}<br>
+    </div>
+    {% endfor %}
+
     <button type="submit">Upload</button>
 </form>
 {% endblock %}
