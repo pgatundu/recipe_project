@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RecipeForm,ProfileForm, FoodPhotoForm
 from .models import Recipe, RecipeRating
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from django.core.paginator import Paginator
@@ -277,3 +277,17 @@ def upload_food_photo(request, recipe_id):
         form = FoodPhotoForm()
 
     return render(request, 'upload_food_photo.html', {'form': form, 'recipe': recipe})
+
+@login_required
+def delete_photo(request, photo_id):
+    # Get the photo object
+    photo = get_object_or_404(FoodPhoto, id=photo_id)
+
+    if request.method == "POST":
+        # Delete the photo
+        photo.delete()
+        # Redirect back to the recipe list page
+        return redirect('recipe_list')  # Ensure 'recipe_list' matches your URL name
+
+    # If not POST, redirect or return some other response
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

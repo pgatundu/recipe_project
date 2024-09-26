@@ -596,7 +596,16 @@ button:hover {
 .btn-danger{
     color: red;
 }
+.photo-container {
+    position: relative;
+    margin: 10px;
+    /* Adjust margin if needed */
+}
 
+.btn-delete-photo {
+    color: red;
+    /* Change button color to red for visibility */
+}
 
 /* Specific hover effects for Edit */
 .btn-action[href*="edit_recipe"] {
@@ -613,37 +622,122 @@ button:hover {
     color: white;
     background-color: green;
 }
-
-/* General styling for the food photo wrapper */
-.food-photo-wrapper {
+/* General Recipe List Styling */
+#recipe-list {
     display: flex;
-    /* Use flexbox for better alignment */
-    justify-content: left;
-    /* Center the image horizontally */
-    margin: 10px;
-    /* Space around the image */
+    flex-direction: column;
+    gap: 20px;
+    /* Space between recipes */
+    padding: 20px;
 }
 
-/* Styling for the food photo */
-.food-photo {
-    max-width: 50%;
-    height: auto;
+/* Recipe Item Styling */
+.recipe-item {
+    background: #fff;
+    /* Background for each recipe */
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    padding: 15px;
+    /* Padding inside each recipe */
 }
 
-/* Optional: Add some styles to the recipe list for better layout */
-#search-results ul {
+/* Recipe Details Styling using Flexbox */
+.recipe-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* Space between columns */
+}
+
+/* Left Column */
+.details-column.left-column {
+    flex: 1;
+    /* Takes remaining space */
+}
+
+/* Right Column */
+.details-column.right-column {
+    flex: 1;
+    /* Takes remaining space */
+}
+
+.photo-container {
+    position: relative;
+}
+
+.photo-container:hover .btn-delete-photo {
+    display: block;
+    /* Show delete button on hover */
+    position: absolute;
+    /* Position the button on top of the image */
+    top: 10px;
+    /* Adjust as needed */
+    right: 10px;
+    /* Adjust as needed */
+    background-color: red;
+    /* Make the button red for visibility */
+    color: white;
+    /* Button text color */
+    border: none;
+    /* Remove border */
+    padding: 5px;
+    /* Add padding */
+    cursor: pointer;
+    /* Change cursor to pointer */
+    z-index: 10;
+    /* Make sure it is above the image */
+}
+
+.btn-delete-photo {
+    display: none;
+    /* Initially hide the button */
+}
+/* Recipe List Styling */
+.recipe-list {
     list-style-type: none;
     padding: 0;
-}
-
-#search-results li {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Space items evenly */
 }
 
 
+
+.food-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two columns for the top row */
+    grid-template-rows: auto;
+    /* Rows will be auto-sized based on content */
+    gap: 10px;
+    /* Space between images */
+    margin-bottom: 15px;
+    /* Space below the grid */
+}
+
+.food-photo {
+    width: 100%;
+    /* Full width of the grid cell */
+    height: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Cover the area without stretching */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .recipe-item {
+        flex: 0 0 calc(50% - 20px);
+        /* Two items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-item {
+        flex: 0 0 100%;
+        /* One item per row on mobile devices */
+    }
+}

@@ -1,0 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Attach event listeners to delete photo buttons
+    const deletePhotoForms = document.querySelectorAll('.delete-photo-form');
+
+    deletePhotoForms.forEach(form => {
+        form.addEventListener('submit', function (event) {
+            // Optionally, you can show a confirmation dialog here
+            const confirmed = confirm("Are you sure you want to delete this photo?");
+            if (!confirmed) {
+                event.preventDefault(); // Prevent form submission if not confirmed
+            }
+        });
+    });
+});

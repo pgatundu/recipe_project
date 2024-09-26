@@ -1,76 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-    <ul id="recipe-list">
-        {% for recipe in page_obj %}
-        <li style="display: flex; align-items: flex-start; margin-bottom: 20px;">
-            <!-- Display food photo if available -->
-            {% if recipe.photos.all %}
-            <div style="margin-right: 20px;">
+<!-- Recipe List Section -->
+<ul id="recipe-list">
+    {% for recipe in page_obj %}
+    <li style="display: flex; flex-direction: column; margin-bottom: 20px;">
+        <!-- Display food photos if available -->
+        {% if recipe.photos.all %}
+        <div class="photo-gallery">
+            <div class="food-photo-grid">
                 {% for photo in recipe.photos.all %}
-                <img src="{{ photo.image.url }}" alt="Food Photo" style="max-width: 150px; max-height: 100px;">
-                {% endfor %}
-            </div>
-            {% endif %}
+                <div class="photo-container" id="photo-{{ photo.id }}">
+                    <img src="{{ photo.image.url }}" alt="Food Photo" class="food-photo">
 
-            <div>
-                <strong>Title:</strong><br>{{ recipe.title }}<br>
-                <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
-                <strong>Description:</strong><br>{{ recipe.description }}<br>
-                <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
-
-                <!-- Upload food photo form -->
-                <form action="{% url 'upload_food_photo' recipe.id %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="file" name="image" accept="image/*" multiple required> <!-- Allow multiple uploads -->
-                    <button type="submit" class="btn btn-primary">Upload Photo</button>
-                </form>
-
-                <!-- Edit button -->
-                {% if recipe.user == user %}
-                <div class="btn-group dropup" style="display: inline-block;">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="optionsButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Options
-                    </button>
-                    <!-- Dropdown menu for Edit and Delete -->
-                    <div class="dropdown-menu" aria-labelledby="optionsButton">
-                        <a class="dropdown-item btn-action" href="{% url 'edit_recipe' recipe.id %}">Edit Recipe</a>
-                        <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="dropdown-item"
-                            onsubmit="return confirm('Are you sure you want to delete this recipe?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-danger">Delete Recipe</button>
-                        </form>
+                    <div class="btn-group dropup" style="position: absolute; top: 10px; right: 10px;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="optionsButton{{ photo.id }}"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options
+                        </button>
+                        <!-- Dropdown menu for Delete Photo -->
+                        <div class="dropdown-menu" aria-labelledby="optionsButton{{ photo.id }}">
+                            <form action="{% url 'delete_photo' photo.id %}" method="POST"
+                                class="dropdown-item delete-photo-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-danger" style="width: 100%;">Delete Photo</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                {% endif %}
+                {% endfor %}
             </div>
-        </li>
-        <hr>
-        {% endfor %}
-    </ul>
-</div>
-
-<!-- Pagination controls -->
-<div id="pagination-controls">
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-        <button onclick="goToPage({{ page_obj.previous_page_number }})">Previous</button>
+        </div>
         {% endif %}
 
-        {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-        <button class="active">{{ num }}</button>
-        {% else %}
-        <button onclick="goToPage({{ num }})">{{ num }}</button>
-        {% endif %}
-        {% endfor %}
+        <!-- Recipe details container -->
+        <div style="display: flex; flex-wrap: wrap; margin-top: 10px;">
+            <!-- Left Column -->
+            <div style="flex: 1 1 45%; padding: 10px;">
+                <strong>Title:</strong><br>{{ recipe.title }}<br><br>
+                <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
+            </div>
 
-        {% if page_obj.has_next %}
-        <button onclick="goToPage({{ page_obj.next_page_number }})">Next</button>
+            <!-- Right Column -->
+            <div style="flex: 1 1 45%; padding: 10px;">
+                <strong>Description:</strong><br>{{ recipe.description }}<br><br>
+                <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
+            </div>
+        </div>
+
+        <!-- Upload food photo form -->
+        <div style="flex: 1 1 100%; margin-top: 10px;">
+            <form action="{% url 'upload_food_photo' recipe.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="image" accept="image/*" multiple required style="margin-bottom: 10px;">
+                <button type="submit" class="btn btn-primary">Upload Photo</button>
+            </form>
+        </div>
+
+        <!-- Edit and Delete Options -->
+        {% if recipe.user == user %}
+        <div style="flex: 1 1 100%; margin-top: 10px;">
+            <div class="btn-group dropup" style="display: inline-block;">
+                <button class="btn btn-info dropdown-toggle" type="button" id="optionsButtonRecipe"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options
+                </button>
+                <!-- Dropdown menu for Edit and Delete -->
+                <div class="dropdown-menu" aria-labelledby="optionsButtonRecipe">
+                    <a class="dropdown-item btn-action" href="{% url 'edit_recipe' recipe.id %}">Edit Recipe</a>
+                    <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="dropdown-item">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-danger">Delete Recipe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         {% endif %}
-    </div>
-</div>
+    </li>
+    <hr>
+    {% endfor %}
+</ul>
 
 {% endblock %}

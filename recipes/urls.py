@@ -20,6 +20,8 @@ urlpatterns = [
     path('update_bio/', views.update_bio, name='update_bio'),
     path('delete_profile_photo/', views.delete_profile_photo, name='delete_profile_photo'),
     path('upload_food_photo/<int:recipe_id>/', views.upload_food_photo, name='upload_food_photo'),
+    path('delete_photo/<int:photo_id>/', views.delete_photo, name='delete_photo'),
+
 
    
 ]
