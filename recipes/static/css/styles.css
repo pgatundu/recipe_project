@@ -5,17 +5,9 @@
     box-sizing: border-box;
 }
 
-/* Body Styling */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
 /* Navigation Bar Styling */
 nav {
-    background: #333;
+    background: black;
     color: #fff;
     padding: 10px 0;
     text-align: left;
@@ -47,17 +39,6 @@ main {
     cursor: pointer;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav a {
-        display: block;
-        margin: 10px 0;
-    }
-
-    main {
-        padding: 10px;
-    }
-}
 /* Basic Styling for Search Page */
 #search-form {
     margin: 20px 0;
@@ -89,7 +70,7 @@ main {
 
 /* Results Section */
 #search-results {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #search-results ul {
@@ -107,7 +88,7 @@ main {
 
 #search-results p {
     font-style: italic;
-    color: #777;
+    color: #1f1e1e;
 }
 
 /* Responsive Design */
@@ -135,22 +116,21 @@ form {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-
 form button {
     display: block;
-    width: 100%;
+    width: 25%;
     padding: 10px;
     font-size: 16px;
     border: none;
     border-radius: 4px;
-    background-color: #333;
+    background-color: #151414;
     color: #fff;
     cursor: pointer;
     margin-top: 10px;
 }
 
 form button:hover {
-    background-color: #555;
+    background-color: #434343;
 }
 
 /* Form Fields */
@@ -165,33 +145,7 @@ form input[type="email"] {
     font-size: 16px;
 }
 
-form .errorlist {
-    color: red;
-    font-size: 14px;
-}
 
-form .form-group {
-    margin-bottom: 15px;
-}
-
-@media (max-width: 768px) {
-    form {
-        padding: 10px;
-    }
-}
-/* Basic Styling for My Recipes Page */
-h2 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
 
 ul li {
     padding: 10px;
@@ -200,42 +154,22 @@ ul li {
     border-radius: 4px;
     background-color: #f9f9f9;
     font-size: 18px;
-    color: #333;
-}
-
-ul li:nth-child(odd) {
-    background-color: #f1f1f1;
+    color: #1b1a1a;
 }
 
 ul li:hover {
-    background-color: #e1e1e1;
+    background-color: #a1dcf5;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    h2 {
-        font-size: 20px;
-    }
-
-    ul li {
-        font-size: 16px;
-        padding: 8px;
-    }
-}
 /* Basic Styling for Upload Recipe Page */
-h2 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 24px;
-    color: #333;
-}
 
 form {
-    max-width: 600px;
+    max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
     background-color: #f9f9f9;
 }
 
@@ -246,7 +180,7 @@ form select {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 16px;
 }
 
@@ -257,56 +191,16 @@ form select:focus {
     outline: none;
 }
 
-
 button[type="submit"] {
-    background-color: #383636;
+    background-color: #212020;
     border: none;
-    color: white;
+    color: rgb(243, 237, 237);
     padding: 12px 24px;
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 10px;
-}
-
-@media (max-width: 768px) {
-    h2 {
-        font-size: 20px;
-    }
-
-    form {
-        padding: 15px;
-    }
-
-    button[type="submit"] {
-        font-size: 16px;
-    }
-}
-/* Styles for the recipe list */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-li h3 {
-    margin: 0;
-    padding-bottom: 5px;
-    font-size: 1.2em;
-}
-
-li p {
-    margin: 0;
-    padding: 5px 0;
-    font-size: 0.95em;
 }
 
 #pagination-controls {
@@ -333,7 +227,6 @@ li p {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
 }
-
 .pagination button:hover {
     background-color: #45a049;
     transform: translateY(-2px);
@@ -381,42 +274,12 @@ li p {
 
 .rating .fa-star {
     font-size: 24px;
-    /* Adjust size as needed */
     color: gray;
-    /* Default color */
     transition: color 0.2s;
-    /* Smooth transition */
 }
 
 .rating .fa-star.gold {
     color: gold;
-    /* Color when rated */
-}
-
-
-/* Container for buttons */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* Aligns buttons to the left */
-    margin-top: 10px;
-}
-
-/* Edit button styles */
-.button-group .button {
-    background-color: #377c39;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 30px;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s;
-    width: 75px;
 }
 
 /* Hover effect for Edit button */
@@ -424,9 +287,6 @@ li p {
     background-color: #4fe754;
     transform: scale(1.05);
 }
-
-/* Delete button styles */
-
 
 #profile-photo-container {
     float: left;
@@ -456,6 +316,23 @@ li p {
     max-height: 400px;
     box-sizing: border-box;
 }
+#delete-recipe-btn{
+        padding: 10px 10px;
+        width: 120px;
+        align-items: left;
+        border: none;
+        border-radius: 5px;
+        color: rgb(18, 17, 17);
+        background-color: rgb(235, 130, 130);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+
+}
+#delete-recipe-btn:hover{
+    background-color: red;
+
+}
 #delete-profile-btn {
     padding: 10px 10px;
     width: 120px;
@@ -463,7 +340,7 @@ li p {
     border: none;
     border-radius: 5px;
     color: rgb(18, 17, 17);
-    background-color: rgb(185, 184, 184);
+    background-color: rgb(245, 117, 117);
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
@@ -506,8 +383,6 @@ textarea {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     resize: none;
 }
-
-
 button {
     margin-top: 10px;
     padding: 10px 15px;
@@ -520,7 +395,7 @@ button {
 
 button:hover {
     background-color: #45a049;
-    
+
 }
 
 
@@ -545,7 +420,10 @@ button:hover {
     position: relative;
     display: inline-block;
 }
-
+#delete-profile-photo-btn:hover{
+    width: 100px;
+    background-color:red ;
+}
 .profile-photo {
     width: 200px;
     height: 200px;
@@ -562,7 +440,7 @@ button:hover {
 
 .profile-photo-wrapper:hover .delete-photo-form {
     display: block;
-    
+
 }
 
 
@@ -573,16 +451,7 @@ button:hover {
     object-fit: cover;
 }
 
-.delete-photo-form {
-    display: none;
-    position: absolute;
-    top: 30px;
-    right: 0;
-    background-color:transparent;
-    border: none;
-    box-shadow: none;
-    z-index: 10;
-}
+
 /* General styles for dropdown items */
 .dropdown-item {
     display: block;
@@ -613,10 +482,7 @@ button:hover {
     font-size: 20px;
     font: weight 100px;;
 }
-.btn-danger:has(button[type="submit"]):hover {
-    color: white;
-    background-color: red;
-    }
+
 
 .btn-action[href*="edit_recipe"]:hover {
     color: white;
@@ -627,20 +493,15 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* Space between recipes */
     padding: 20px;
 }
 
 /* Recipe Item Styling */
 .recipe-item {
     background: #fff;
-    /* Background for each recipe */
     border-radius: 8px;
-    /* Rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
     padding: 15px;
-    /* Padding inside each recipe */
 }
 
 /* Recipe Details Styling using Flexbox */
@@ -648,19 +509,16 @@ button:hover {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    /* Space between columns */
 }
 
 /* Left Column */
 .details-column.left-column {
     flex: 1;
-    /* Takes remaining space */
 }
 
 /* Right Column */
 .details-column.right-column {
     flex: 1;
-    /* Takes remaining space */
 }
 
 .photo-container {
@@ -669,69 +527,40 @@ button:hover {
 
 .photo-container:hover .btn-delete-photo {
     display: block;
-    /* Show delete button on hover */
     position: absolute;
-    /* Position the button on top of the image */
     top: 10px;
-    /* Adjust as needed */
     right: 10px;
-    /* Adjust as needed */
     background-color: red;
-    /* Make the button red for visibility */
     color: white;
-    /* Button text color */
     border: none;
-    /* Remove border */
     padding: 5px;
-    /* Add padding */
     cursor: pointer;
-    /* Change cursor to pointer */
     z-index: 10;
-    /* Make sure it is above the image */
 }
 
 .btn-delete-photo {
     display: none;
-    /* Initially hide the button */
 }
-/* Recipe List Styling */
-.recipe-list {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* Space items evenly */
-}
-
 
 
 .food-photo-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* Two columns for the top row */
-    grid-template-rows: auto;
-    /* Rows will be auto-sized based on content */
+    grid-template-columns: 1fr 1fr;/
+    grid-template-rows:auto;
     gap: 10px;
-    /* Space between images */
     margin-bottom: 15px;
-    /* Space below the grid */
 }
 
 .food-photo {
-    width: 100%;
-    /* Full width of the grid cell */
+    width: 50%;
     height: auto;
-    /* Maintain aspect ratio */
     object-fit: cover;
-    /* Cover the area without stretching */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .recipe-item {
         flex: 0 0 calc(50% - 20px);
-        /* Two items per row on smaller screens */
     }
 }
 
@@ -741,3 +570,36 @@ button:hover {
         /* One item per row on mobile devices */
     }
 }
+
+.styled-textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    resize: vertical;
+}
+
+/* Recipe List Styles */
+#search-results {
+    max-width: 900px;
+    margin: auto;
+}
+
+.food-photo {
+    width: 100%;
+    height:auto;
+    border-radius: 10px;
+}
+
+/* User Profile Display Styles */
+.profile-info {
+    margin-top: 10px;
+    display: flex;    
+}
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+

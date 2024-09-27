@@ -4,8 +4,8 @@
 
 {% block content %}
 <div id="search-results">
-    {% if recipes %}
     <h2>Recipes Found:</h2>
+    {% if recipes %}
     <ul class="recipe-list">
         {% for recipe in recipes %}
         <li class="recipe-item">
@@ -47,6 +47,21 @@
             <p>You must be logged in to rate this recipe.</p>
             {% endif %}
             {% endif %}
+
+            <!-- User Profile Display for each recipe -->
+            <p><strong>Author of this Recipe</strong></p>
+            <div class="profile-info">
+                <!-- Display Profile Photo -->
+                {% if recipe.user.profile.photo %}
+                <div class="profile-photo-wrapper">
+                    <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
+                </div>
+                {% endif %}
+                <p><strong>Name:</strong> {{ recipe.user.username }}</p><br>
+                <p><strong>
+                    Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}
+                </p>
+            </div>
         </li>
         {% endfor %}
     </ul>
@@ -54,33 +69,4 @@
     <p>No recipes found.</p>
     {% endif %}
 </div>
-
-<!-- User Profile Display -->
-<div id="user-profile">
-    {% if recipes %}
-    <h4>Recipe Uploaded By:</h4>
-    <div class="profile">
-        {% with profile_displayed=False %}
-        {% for recipe in recipes %}
-        {% if recipe.user and not profile_displayed %}
-        <div class="profile-info">
-            <!-- Display Profile Photo -->
-            {% if recipe.user.profile.photo %}
-            <div class="profile-photo-wrapper">
-                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
-            </div>
-            {% endif %}
-            <p><strong>Name:</strong> {{ recipe.user.username }}</p>
-            <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>
-            <p><strong>Bio:</strong> {{ recipe.user.profile.bio|default:"No bio available yet." }}</p>
-        </div>
-        {% with profile_displayed=True %}
-        {% endwith %}
-        {% endif %}
-        {% endfor %}
-        {% endwith %}
-    </div>
-    {% endif %}
-</div>
-
 {% endblock %}

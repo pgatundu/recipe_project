@@ -68,7 +68,7 @@
                     <a class="dropdown-item btn-action" href="{% url 'edit_recipe' recipe.id %}">Edit Recipe</a>
                     <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="dropdown-item">
                         {% csrf_token %}
-                        <button type="submit" class="btn-danger">Delete Recipe</button>
+                        <button type="submit" id="delete-recipe-btn" class="btn-danger">Delete Recipe</button>
                     </form>
                 </div>
             </div>
