@@ -12,7 +12,7 @@ from django.db import models
 from django.views import View
 from .models import Recipe, FoodPhoto
 from django.forms import modelformset_factory
-
+import re
 
 def index(request):
     return render(request, 'index.html')
@@ -104,7 +104,7 @@ def recipe_list(request):
         recipe.user_rating = user_rating if user_rating is not None else 0
 
     # Paginate the recipes, 5 per page
-    paginator = Paginator(recipes, 5)
+    paginator = Paginator(recipes, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -154,19 +154,27 @@ def get_user_rating_for_recipe(user, recipe):
 
 def search_recipes(request):
     ingredient = request.GET.get('ingredient', '')
-    recipes = Recipe.objects.filter(ingredients__icontains=ingredient).order_by('title')
+    message = ""  # Initialize the message variable
+    recipes = []  # Initialize an empty list for recipes
 
-    # Paginate the results
-    paginator = Paginator(recipes, 5)
+    # Check if the input is valid: at least 3 letters, no numbers
+    if len(ingredient) >= 3 and re.match("^[a-zA-Z\s]*$", ingredient):   
+        
+        recipes = Recipe.objects.filter(ingredients__icontains=ingredient).order_by('title')
+    else:
+        message = "Please input a valid ingredient."  
+
+    # Paginate the results if there are any recipes
+    paginator = Paginator(recipes, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    
     return render(request, 'search.html', {
-        'recipes': page_obj,
+        'recipes': page_obj,  
         'page_obj': page_obj,
+        'message': message,  
+        'query': ingredient,  
     })
-
 
 def rate_recipe(request, recipe_id):
     if request.method == 'POST':
@@ -277,6 +285,7 @@ def upload_food_photo(request, recipe_id):
         form = FoodPhotoForm()
 
     return render(request, 'upload_food_photo.html', {'form': form, 'recipe': recipe})
+
 
 @login_required
 def delete_photo(request, photo_id):

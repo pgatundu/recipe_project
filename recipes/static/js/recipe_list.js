@@ -12,3 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Attach event listeners to delete recipe buttons
+    const deleteRecipeForms = document.querySelectorAll('form[action*="delete_recipe"]');
+
+    deleteRecipeForms.forEach(form => {
+        form.addEventListener('submit', function (event) {
+            const confirmed = confirm("Are you sure you want to delete this recipe?");
+            if (!confirmed) {
+                event.preventDefault(); // Prevent form submission if not confirmed
+            }
+        });
+    });
+});

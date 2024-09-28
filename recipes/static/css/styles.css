@@ -7,10 +7,10 @@
 
 /* Navigation Bar Styling */
 nav {
-    background: black;
+    background: rgb(27, 25, 25);
     color: #fff;
     padding: 10px 0;
-    text-align: left;
+    text-align: center;
 }
 
 nav a {
@@ -21,16 +21,18 @@ nav a {
 }
 
 nav a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    color: rgb(116, 187, 242);
 }
 
 /* Main Content Styling */
 main {
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     background: #fff;
     border-radius: 8px;
+    text-align: left;
 }
 
 /* Logout Link */
@@ -41,13 +43,13 @@ main {
 
 /* Basic Styling for Search Page */
 #search-form {
-    margin: 20px 0;
-    text-align: center;
+    margin: 10px 0;
+    text-align: left;
 }
 
-#search-input {
+#search-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -59,20 +61,16 @@ main {
     font-size: 20px;
     border: none;
     border-radius: 4px;
-    background-color: #333;
+    background-color: #0b0b0b;
     color: #fff;
     cursor: pointer;
 }
 
 #search-form button:hover {
-    background-color: #555;
+    background-color: #727272;
 }
 
 /* Results Section */
-#search-results {
-    margin-top: 10px;
-}
-
 #search-results ul {
     list-style-type: none;
     padding: 0;
@@ -108,7 +106,7 @@ h2 {
     color: #333;
 }
 
-form {
+#login {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -116,7 +114,7 @@ form {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-form button {
+#login-button {
     display: block;
     width: 25%;
     padding: 10px;
@@ -129,43 +127,51 @@ form button {
     margin-top: 10px;
 }
 
-form button:hover {
-    background-color: #434343;
+#login-button:hover {
+    background-color: #6a6868;
 }
 
-/* Form Fields */
-form input[type="text"],
-form input[type="password"],
-form input[type="email"] {
+/* .register-form Fields */
+.register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="email"],
+input[type="text"],
+button {
     width: 100%;
     padding: 10px;
-    margin: 5px 0;
+    margin: 10px 0;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
+    box-sizing: border-box;
     font-size: 16px;
 }
 
-
-
-ul li {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: 18px;
-    color: #1b1a1a;
-}
-
-ul li:hover {
-    background-color: #a1dcf5;
+#register-button {
+    background-color: #212222;
+    color: white;
+    border: none;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
+
+#register-button:hover {
+    background-color: #7b7c7d;
+   
+}
+
+
 
 /* Basic Styling for Upload Recipe Page */
 
-form {
-    max-width: 1000px;
+#upload-recipe-form {
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     border: 2px solid #ddd;
@@ -173,9 +179,9 @@ form {
     background-color: #f9f9f9;
 }
 
-form input,
-form textarea,
-form select {
+#upload-recipe-form input,
+#upload-recipe-form textarea,
+#upload-recipe-form select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -184,15 +190,15 @@ form select {
     font-size: 16px;
 }
 
-form input:focus,
-form textarea:focus,
-form select:focus {
+#upload-recipe-form input:focus,
+#upload-recipe-form textarea:focus,
+#upload-recipe-form select:focus {
     border-color: #007BFF;
     outline: none;
 }
 
-button[type="submit"] {
-    background-color: #212020;
+#upload-recipe-button[type="submit"] {
+    background-color: #2d2c2c;
     border: none;
     color: rgb(243, 237, 237);
     padding: 12px 24px;
@@ -201,6 +207,10 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 10px;
+    width: 50%;
+}
+#upload-recipe-button:hover{
+    background-color: rgb(111, 110, 110);
 }
 
 #pagination-controls {
@@ -226,15 +236,19 @@ button[type="submit"] {
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
+
 }
+
 .pagination button:hover {
     background-color: #45a049;
     transform: translateY(-2px);
+    
 }
 
 .pagination button.active {
     background-color: #333;
     font-weight: bold;
+    
 }
 
 .pagination button:disabled {
@@ -260,18 +274,19 @@ button[type="submit"] {
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
+
 }
 
 .pagination a:hover {
-    background-color: #1feb29;      
+    background-color: #1feb29;
     transform: translateY(-2px);
+    text-decoration: none;
 }
 
 
 .rating {
     cursor: pointer;
 }
-
 .rating .fa-star {
     font-size: 24px;
     color: gray;
@@ -545,7 +560,7 @@ button:hover {
 
 .food-photo-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;/
+    grid-template-columns: 1fr 1fr;
     grid-template-rows:auto;
     gap: 10px;
     margin-bottom: 15px;
@@ -603,3 +618,28 @@ button:hover {
     border-radius: 50%;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .step-links {
+    display: inline-flex;
+    gap: 10px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    font-weight: bold;
+}

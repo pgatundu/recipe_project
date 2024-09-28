@@ -6,7 +6,7 @@
 <h1>Search Recipes</h1>
 
 <!-- Search form using Django GET method -->
-<form method="GET" action="{% url 'search_recipes' %}">
+<form id="search-form" method="GET" action="{% url 'search_recipes' %}">
     <input type="text" name="ingredient" placeholder="Search by ingredient..." autocomplete="off"
         value="{{ request.GET.ingredient }}">
     <button type="submit">Search</button>

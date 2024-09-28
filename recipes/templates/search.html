@@ -3,15 +3,28 @@
 {% block title %}Recipe Search{% endblock %}
 
 {% block content %}
+<h1>Search Recipes</h1>
+
+<!-- Search form using Django GET method -->
+<form id="search-form" method="GET" action="{% url 'search_recipes' %}">
+    <input type="text" name="ingredient" placeholder="Search by ingredient..." autocomplete="off" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Display message if present -->
+{% if message %}
+<p style="color: red;">{{ message }}</p>
+{% endif %}
+
+<!-- Display search results -->
 <div id="search-results">
     <h2>Recipes Found:</h2>
-    {% if recipes %}
+    {% if page_obj %}
     <ul class="recipe-list">
-        {% for recipe in recipes %}
+        {% for recipe in page_obj %}
         <li class="recipe-item">
             <h3>{{ recipe.title }}</h3>
-
-            <!-- Loop through all food photos if available -->
+            <!-- Loop through food photos if available -->
             {% if recipe.photos.exists %}
             <div class="food-photo-grid">
                 {% for photo in recipe.photos.all %}
@@ -19,7 +32,6 @@
                 {% endfor %}
             </div>
             {% endif %}
-
             <div class="recipe-details">
                 <div class="ingredients">
                     <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
@@ -29,39 +41,7 @@
                     <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
                 </div>
             </div>
-
-            {% if user.is_authenticated and recipe.user == user %}
-            <p>Your recipe's average rating: <strong>{{ recipe.average_rating|default:0 }}</strong></p>
-            {% else %}
-            <!-- Star rating system -->
-            <div class="rating" data-recipe-id="{{ recipe.id }}">
-                {% for star in "12345" %}
-                <i class="fa fa-star{% if recipe.average_rating and recipe.average_rating >= star %} gold{% endif %}"
-                    data-value="{{ star }}"></i>
-                {% endfor %}
-            </div>
-            <p>Average Rating: <span class="average-rating">{{ recipe.average_rating|default:0 }}</span></p>
-            {% if user.is_authenticated %}
-            <p>You can rate this recipe!</p>
-            {% else %}
-            <p>You must be logged in to rate this recipe.</p>
-            {% endif %}
-            {% endif %}
-
-            <!-- User Profile Display for each recipe -->
-            <p><strong>Author of this Recipe</strong></p>
-            <div class="profile-info">
-                <!-- Display Profile Photo -->
-                {% if recipe.user.profile.photo %}
-                <div class="profile-photo-wrapper">
-                    <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
-                </div>
-                {% endif %}
-                <p><strong>Name:</strong> {{ recipe.user.username }}</p><br>
-                <p><strong>
-                    Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}
-                </p>
-            </div>
+            <!-- Add other recipe details as needed -->
         </li>
         {% endfor %}
     </ul>
@@ -69,4 +49,24 @@
     <p>No recipes found.</p>
     {% endif %}
 </div>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?ingredient={{ query }}&page=1">&laquo; first</a>
+        <a href="?ingredient={{ query }}&page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?ingredient={{ query }}&page={{ page_obj.next_page_number }}">next</a>
+        <a href="?ingredient={{ query }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock %}
