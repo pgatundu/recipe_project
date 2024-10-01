@@ -15,9 +15,9 @@ class FoodPhoto(models.Model):
     image = models.ImageField(upload_to='food_photos/')
 
 class RecipeRating(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='reciperating')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+   recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='reciperating')
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
+   rating = models.IntegerField()
 
 
 class Profile(models.Model):

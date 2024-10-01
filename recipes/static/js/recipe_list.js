@@ -4,18 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     deletePhotoForms.forEach(form => {
         form.addEventListener('submit', function (event) {
-            // Optionally, you can show a confirmation dialog here
             const confirmed = confirm("Are you sure you want to delete this photo?");
             if (!confirmed) {
                 event.preventDefault(); // Prevent form submission if not confirmed
             }
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     // Attach event listeners to delete recipe buttons
-    const deleteRecipeForms = document.querySelectorAll('form[action*="delete_recipe"]');
+    const deleteRecipeForms = document.querySelectorAll('.delete-recipe-form');
 
     deleteRecipeForms.forEach(form => {
         form.addEventListener('submit', function (event) {

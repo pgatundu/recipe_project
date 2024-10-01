@@ -30,11 +30,11 @@
 <p id="bio-display"><strong>Bio</strong>: {{ profile.bio|default:"No bio available yet." }}</p>
 
 <!-- Hidden Edit Bio and Upload Photo Form -->
-<div id="edit-bio-form">
+<div id="edit-bio-form" style="display: none;">
     <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="bio">Edit Bio:</label>
-        <textarea name="bio" id="bio" rows="4">{{ profile.bio }}</textarea>
+        <textarea name="bio" id="bio" rows="15">{{ profile.bio }}</textarea>
 
         <!-- Email input field -->
         <label for="email">Add Email (optional):</label>
@@ -44,21 +44,18 @@
         <label for="photo">Upload Profile Photo:</label>
         <input type="file" name="photo" id="photo" accept="image/*">
 
-        <button type="submit">Save Changes</button>
+        <button type="submit" id="save-changes-btn">Save Changes</button>
         <button type="button" id="cancel-bio-btn">Cancel</button>
+
+        <!-- Delete Profile Button inside Edit Bio form -->
+        <form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post" style="display: none;">
+            {% csrf_token %}
+            <button type="button" id="delete-profile-btn">Delete Profile</button>
+        </form>
     </form>
 </div>
 
 <!-- Edit Bio Button -->
 <button id="edit-bio-btn">Edit Bio</button>
-
-<!-- Delete Profile Button -->
-<form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post">
-    {% csrf_token %}
-    <button type="button" id="delete-profile-btn">Delete Profile</button>
-</form>
-
-
-
 
 {% endblock %}

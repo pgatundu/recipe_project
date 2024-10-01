@@ -8,24 +8,18 @@
         <!-- Display food photos if available -->
         {% if recipe.photos.all %}
         <div class="photo-gallery">
-            <div class="food-photo-grid">
+            <div class="food-photo-grid" style="display: flex; flex-wrap: wrap;">
                 {% for photo in recipe.photos.all %}
-                <div class="photo-container" id="photo-{{ photo.id }}">
-                    <img src="{{ photo.image.url }}" alt="Food Photo" class="food-photo">
+                <div class="photo-container" id="photo-{{ photo.id }}" style="position: relative; margin: 5px;">
+                    <img src="{{ photo.image.url }}" alt="Food Photo" class="food-photo"
+                        style="width: 150px; height: 150px; object-fit: cover;">
 
-                    <div class="btn-group dropup" style="position: absolute; top: 10px; right: 10px;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="optionsButton{{ photo.id }}"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options
-                        </button>
-                        <!-- Dropdown menu for Delete Photo -->
-                        <div class="dropdown-menu" aria-labelledby="optionsButton{{ photo.id }}">
-                            <form action="{% url 'delete_photo' photo.id %}" method="POST"
-                                class="dropdown-item delete-photo-form">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-danger" style="width: 100%;">Delete Photo</button>
-                            </form>
-                        </div>
-                    </div>
+                    <!-- Direct Delete Button for Photo -->
+                    <form action="{% url 'delete_photo' photo.id %}" method="POST" class="delete-photo-form"
+                        style="position: absolute; top: 5px; right: 5px; z-index: 10;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Delete Photo</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -59,19 +53,12 @@
         <!-- Edit and Delete Options -->
         {% if recipe.user == user %}
         <div style="flex: 1 1 100%; margin-top: 10px;">
-            <div class="btn-group dropup" style="display: inline-block;">
-                <button class="btn btn-info dropdown-toggle" type="button" id="optionsButtonRecipe"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options
-                </button>
-                <!-- Dropdown menu for Edit and Delete -->
-                <div class="dropdown-menu" aria-labelledby="optionsButtonRecipe">
-                    <a class="dropdown-item btn-action" href="{% url 'edit_recipe' recipe.id %}">Edit Recipe</a>
-                    <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="dropdown-item">
-                        {% csrf_token %}
-                        <button type="submit" id="delete-recipe-btn" class="btn-danger">Delete Recipe</button>
-                    </form>
-                </div>
-            </div>
+            <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="delete-recipe-form"
+                style="display: inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Recipe</button>
+            </form>
+            <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-info" style="margin-left: 10px;">Edit Recipe</a>
         </div>
         {% endif %}
     </li>

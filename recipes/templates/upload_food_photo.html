@@ -4,7 +4,12 @@
 <h2>Upload Photos for {{ recipe.title }}</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }} <!-- This will display the file input with the multiple attribute -->
+    {{ form.management_form }} <!-- Management form for the formset -->
+    {% for form in form %}
+    <div class="photo-upload">
+        {{ form.image.label }} {{ form.image }}<br>
+    </div>
+    {% endfor %}
     <button type="submit">Upload Photos</button>
 </form>
 {% endblock %}

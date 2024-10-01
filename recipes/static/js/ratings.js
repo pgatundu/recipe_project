@@ -9,11 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Highlight selected stars
                 this.querySelectorAll('.fa-star').forEach(star => {
-                    if (star.getAttribute('data-value') <= ratingValue) {
-                        star.classList.add('gold');
-                    } else {
-                        star.classList.remove('gold');
-                    }
+                    star.classList.toggle('gold', star.getAttribute('data-value') <= ratingValue);
                 });
 
                 // Send the rating to the backend
@@ -21,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken')
+                        'X-CSRFToken': getCookie('csrftoken')  // Ensure CSRF token is set correctly
                     },
                     body: JSON.stringify({ rating: ratingValue })
                 })
@@ -31,7 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             console.error(data.error);
                         } else {
                             // Update the displayed average rating
-                            this.closest('li').querySelector('.average-rating').textContent = data.new_average.toFixed(2);
+                            const averageRatingElement = this.closest('.recipe-rating').querySelector('.average-rating');
+                            const userRatingElement = this.closest('.recipe-rating').querySelector('.user-rating');
+
+                            if (averageRatingElement) {
+                                averageRatingElement.textContent = data.new_average.toFixed(2); // Update with new average
+                            }
+
+                            if (userRatingElement) {
+                                userRatingElement.textContent = ratingValue; // Update user's rating display
+                            }
                         }
                     })
                     .catch(error => {

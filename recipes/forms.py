@@ -26,3 +26,7 @@ class FoodPhotoForm(forms.ModelForm):
     class Meta:
         model = FoodPhoto
         fields = ['image'] 
+
+from django.forms import modelformset_factory
+
+FoodPhotoFormSet = modelformset_factory(FoodPhoto, form=FoodPhotoForm, extra=6)  

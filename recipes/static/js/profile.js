@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         editBioButton.style.display = 'none';
         bioDisplay.style.display = 'none';
         editBioForm.style.display = 'block';
+        deleteProfileForm.style.display = 'block';  // Show the delete profile button
     });
 
     // Cancel the edit and revert back to displaying the bio
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         editBioForm.style.display = 'none';
         editBioButton.style.display = 'block';
         bioDisplay.style.display = 'block';
+        deleteProfileForm.style.display = 'none';  // Hide the delete profile button
     });
 
     // Confirm deletion of profile

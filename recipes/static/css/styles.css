@@ -45,9 +45,6 @@ main {
 #search-form {
     margin: 10px 0;
     text-align: left;
-}
-
-#search-form {
     width: 100%;
     max-width: 800px;
     padding: 10px;
@@ -98,6 +95,7 @@ main {
         box-sizing: border-box;
     }
 }
+
 /* Basic Styling for Login Page */
 h2 {
     text-align: center;
@@ -114,6 +112,7 @@ h2 {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
+
 #login-button {
     display: block;
     width: 25%;
@@ -163,13 +162,9 @@ button {
 
 #register-button:hover {
     background-color: #7b7c7d;
-   
 }
 
-
-
 /* Basic Styling for Upload Recipe Page */
-
 #upload-recipe-form {
     max-width: 800px;
     margin: 20px auto;
@@ -209,7 +204,8 @@ button {
     box-shadow: 10px;
     width: 50%;
 }
-#upload-recipe-button:hover{
+
+#upload-recipe-button:hover {
     background-color: rgb(111, 110, 110);
 }
 
@@ -235,20 +231,16 @@ button {
     transition: background-color 0.3s, transform 0.3s;
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-
 }
 
 .pagination button:hover {
     background-color: #45a049;
     transform: translateY(-2px);
-    
 }
 
 .pagination button.active {
     background-color: #333;
     font-weight: bold;
-    
 }
 
 .pagination button:disabled {
@@ -273,8 +265,6 @@ button {
     transition: background-color 0.3s, transform 0.3s;
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-
 }
 
 .pagination a:hover {
@@ -283,10 +273,10 @@ button {
     text-decoration: none;
 }
 
-
 .rating {
     cursor: pointer;
 }
+
 .rating .fa-star {
     font-size: 24px;
     color: gray;
@@ -295,12 +285,6 @@ button {
 
 .rating .fa-star.gold {
     color: gold;
-}
-
-/* Hover effect for Edit button */
-.button-group .button:hover {
-    background-color: #4fe754;
-    transform: scale(1.05);
 }
 
 #profile-photo-container {
@@ -317,329 +301,109 @@ button {
 
 #bio-display {
     overflow: hidden;
-}
-
-#bio-display {
     overflow-wrap: break-word;
-    max-width: 400px;
-    margin-top: 20px;
+    max-width: 800px;
+    margin-top: 8px;
 }
 
 #edit-bio-form textarea {
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     max-height: 400px;
     box-sizing: border-box;
+    border-radius: 10px;
 }
-#delete-recipe-btn{
-        padding: 10px 10px;
-        width: 120px;
-        align-items: left;
-        border: none;
-        border-radius: 5px;
-        color: rgb(18, 17, 17);
-        background-color: rgb(235, 130, 130);
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 10px;
 
+#save-changes-btn {
+    color: rgb(34, 35, 34);
+    background-color: green;
+    max-width: 25%;
+    border-radius: 15px;
 }
-#delete-recipe-btn:hover{
-    background-color: red;
 
+#save-changes-btn:hover {
+    background-color: rgb(21, 216, 31);
 }
-#delete-profile-btn {
+
+#cancel-bio-btn {
+    color: black;
+    background-color: rgb(226, 30, 30);
+    max-width: 25%;
+    border-radius: 15px;
+}
+
+#cancel-bio-btn:hover {
+    background-color: #ef817f;
+}
+
+/* Delete Recipe Button */
+#delete-recipe-btn {
     padding: 10px 10px;
     width: 120px;
     align-items: left;
     border: none;
     border-radius: 5px;
     color: rgb(18, 17, 17);
-    background-color: rgb(245, 117, 117);
+    background-color: rgb(237, 52, 52);
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
 }
+
+#delete-recipe-btn:hover {
+    background-color: rgb(242, 142, 142);
+}
+
 #delete-profile-form {
     opacity: 1;
     text-align: left;
-    margin-left: 0;}
-
-#delete-profile-btn:hover {
-    opacity:0.9;
-    background-color: red;
-    
-}
-/* Profile Photo */
-.profile-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
+    margin-left: 0;
 }
 
 /* Edit Bio Form */
-#edit-bio-form {
-    display: none;
-    margin-top: 20px;
+#profile-photo-container {
+    float: left;
+    margin-right: 20px;
 }
 
-/* Delete Profile Form */
-#delete-profile-form {
-    margin-top: 20px;
+#bio-display {
+    max-width: 800px;
+    margin-top: 8px;
 }
 
-/* Textarea Styles */
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    resize: none;
-}
-button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+/* Responsiveness for Recipe Photos and Delete Button */
+@media (max-width: 768px) {
+    .photo-container {
+        flex-direction: column;
+        /* Stack items vertically on small screens */
+        align-items: flex-start;
+        /* Align items to the left */
+        margin: 10px 0;
+        /* Margin between photos */
+    }
 
-button:hover {
-    background-color: #45a049;
-
+    #delete-recipe-btn {
+        margin-top: 5px;
+        /* Space above the button */
+        width: auto;
+        /* Let button resize based on content */
+    }
 }
-
-
-#cancel-bio-btn {
-    background-color: #f44336;
-    
-}
-
-#cancel-bio-btn:hover {
-    background-color: #e53935;
-    
-}
-
-#delete-profile-form {
-    margin-top: 100px;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-   
-}
-.profile-photo-wrapper {
+.photo-container {
     position: relative;
-    display: inline-block;
-}
-#delete-profile-photo-btn:hover{
-    width: 100px;
-    background-color:red ;
-}
-.profile-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
+    /* Ensure position relative for absolute positioning */
 }
 
 .delete-photo-form {
-    display: none;
-    position: absolute;   
-    top: 1px;
-    right: 1px;
-}
-
-.profile-photo-wrapper:hover .delete-photo-form {
-    display: block;
-
-}
-
-
-.profile-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-
-/* General styles for dropdown items */
-.dropdown-item {
-    display: block;
-    padding: 10px;
-    margin-top: 0;
-    margin: 0;
-    text-align: center;
-    border: 10px;
-   
-}
-.btn-danger{
-    color: red;
-}
-.photo-container {
-    position: relative;
-    margin: 10px;
-    /* Adjust margin if needed */
-}
-
-.btn-delete-photo {
-    color: red;
-    /* Change button color to red for visibility */
-}
-
-/* Specific hover effects for Edit */
-.btn-action[href*="edit_recipe"] {
-    color: green;
-    font-size: 20px;
-    font: weight 100px;;
-}
-
-
-.btn-action[href*="edit_recipe"]:hover {
-    color: white;
-    background-color: green;
-}
-/* General Recipe List Styling */
-#recipe-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-}
-
-/* Recipe Item Styling */
-.recipe-item {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-/* Recipe Details Styling using Flexbox */
-.recipe-details {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-/* Left Column */
-.details-column.left-column {
-    flex: 1;
-}
-
-/* Right Column */
-.details-column.right-column {
-    flex: 1;
-}
-
-.photo-container {
-    position: relative;
-}
-
-.photo-container:hover .btn-delete-photo {
-    display: block;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
+    top: 5px;
+    right: 5px;
     z-index: 10;
-}
-
-.btn-delete-photo {
     display: none;
+    /* Initially hide the delete button */
 }
 
-
-.food-photo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows:auto;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.food-photo {
-    width: 50%;
-    height: auto;
-    object-fit: cover;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .recipe-item {
-        flex: 0 0 calc(50% - 20px);
-    }
-}
-
-@media (max-width: 480px) {
-    .recipe-item {
-        flex: 0 0 100%;
-        /* One item per row on mobile devices */
-    }
-}
-
-.styled-textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    resize: vertical;
-}
-
-/* Recipe List Styles */
-#search-results {
-    max-width: 900px;
-    margin: auto;
-}
-
-.food-photo {
-    width: 100%;
-    height:auto;
-    border-radius: 10px;
-}
-
-/* User Profile Display Styles */
-.profile-info {
-    margin-top: 10px;
-    display: flex;    
-}
-.profile-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination .step-links {
-    display: inline-flex;
-    gap: 10px;
-}
-
-.pagination a {
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    color: #333;
-}
-
-.pagination a:hover {
-    background-color: #f0f0f0;
-}
-
-.pagination .current {
-    font-weight: bold;
+.photo-container:hover .delete-photo-form {
+    display: block;
+    /* Show the delete button on hover */
 }
