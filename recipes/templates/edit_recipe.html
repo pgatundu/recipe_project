@@ -3,13 +3,13 @@
 {% block content %}
 <h2>Edit Recipe</h2>
 
-<form method="POST">
+<form id="recipe-list"method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button  type="submit">Save Changes</button>
+    <button id="Save-changes-btn" type="submit">Save Changes</button>
 </form>
 
 <a href="{% url 'recipe_list' %}">
-    <button  type="submit">Cancel</button>
+    <button id="edit_recipe_cancel-btn" type="submit">Cancel</button>
 </a>
 {% endblock %}

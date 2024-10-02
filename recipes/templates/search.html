@@ -61,13 +61,14 @@
                 {% else %}
                 <p>You need to <a href="{% url 'login' %}">log in</a> to rate this recipe.</p>
                 {% endif %}
+                
             </div>
 
             <!-- Author's Profile Information -->
+            <p><strong>Recipe by:{{ recipe.user.username }}</strong> </p>
             <div class="author-info">
-                <h6>Recipe by: {{ recipe.user.username }}</h6>             
-                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">               
-                <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>
+                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">             
+                <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>                
             </div>
 
         </li>

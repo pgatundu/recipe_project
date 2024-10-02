@@ -4,19 +4,17 @@
 <!-- Recipe List Section -->
 <ul id="recipe-list">
     {% for recipe in page_obj %}
-    <li style="display: flex; flex-direction: column; margin-bottom: 20px;">
+    <li>
         <!-- Display food photos if available -->
         {% if recipe.photos.all %}
         <div class="photo-gallery">
-            <div class="food-photo-grid" style="display: flex; flex-wrap: wrap;">
+            <div class="food-photo-grid">
                 {% for photo in recipe.photos.all %}
-                <div class="photo-container" id="photo-{{ photo.id }}" style="position: relative; margin: 5px;">
-                    <img src="{{ photo.image.url }}" alt="Food Photo" class="food-photo"
-                        style="width: 150px; height: 150px; object-fit: cover;">
+                <div class="photo-container" id="photo-{{ photo.id }}">
+                    <img src="{{ photo.image.url }}" alt="Food Photo" class="food-photo">
 
                     <!-- Direct Delete Button for Photo -->
-                    <form action="{% url 'delete_photo' photo.id %}" method="POST" class="delete-photo-form"
-                        style="position: absolute; top: 5px; right: 5px; z-index: 10;">
+                    <form action="{% url 'delete_photo' photo.id %}" method="POST" class="delete-photo-form">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm">Delete Photo</button>
                     </form>
@@ -27,38 +25,37 @@
         {% endif %}
 
         <!-- Recipe details container -->
-        <div style="display: flex; flex-wrap: wrap; margin-top: 10px;">
+        <div class="recipe-details">
             <!-- Left Column -->
-            <div style="flex: 1 1 45%; padding: 10px;">
+            <div class="recipe-info">
                 <strong>Title:</strong><br>{{ recipe.title }}<br><br>
                 <strong>Ingredients:</strong><br>{{ recipe.ingredients }}<br>
             </div>
 
             <!-- Right Column -->
-            <div style="flex: 1 1 45%; padding: 10px;">
+            <div class="recipe-info">
                 <strong>Description:</strong><br>{{ recipe.description }}<br><br>
                 <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
             </div>
         </div>
 
         <!-- Upload food photo form -->
-        <div style="flex: 1 1 100%; margin-top: 10px;">
+        <div class="upload-photo-form">
             <form action="{% url 'upload_food_photo' recipe.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" name="image" accept="image/*" multiple required style="margin-bottom: 10px;">
-                <button type="submit" class="btn btn-primary">Upload Photo</button>
+                <input type="file" name="image" accept="image/*" multiple required>
+                <button type="submit" id="Upload-Photo-btn">Upload Photo</button>
             </form>
         </div>
 
         <!-- Edit and Delete Options -->
         {% if recipe.user == user %}
-        <div style="flex: 1 1 100%; margin-top: 10px;">
-            <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="delete-recipe-form"
-                style="display: inline-block;">
+        <div class="recipe-options">
+            <form action="{% url 'delete_recipe' recipe.id %}" method="POST" class="delete-recipe-form">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Delete Recipe</button>
+                <button type="submit" id="delete-recipe-btn">Delete Recipe</button>
+                <a href="{% url 'edit_recipe' recipe.id %}" id="edit-recipe-btn">Edit Recipe</a>
             </form>
-            <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-info" style="margin-left: 10px;">Edit Recipe</a>
         </div>
         {% endif %}
     </li>

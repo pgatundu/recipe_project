@@ -41,128 +41,299 @@ main {
     cursor: pointer;
 }
 
-/* Basic Styling for Search Page */
-#search-form {
-    margin: 10px 0;
-    text-align: left;
-    width: 100%;
-    max-width: 800px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#search-form button {
-    padding: 10px 20px;
-    font-size: 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #0b0b0b;
-    color: #fff;
-    cursor: pointer;
-}
-
-#search-form button:hover {
-    background-color: #727272;
-}
-
-/* Results Section */
-#search-results ul {
-    list-style-type: none;
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
     padding: 0;
 }
 
-#search-results li {
-    background-color: #fff;
+
+p {
+    color: #6c757d;
+}
+
+/* Search Form */
+#search-form {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#search-form input[type="text"] {
+    width: 600px;
     padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-#search-results p {
-    font-style: italic;
-    color: #1f1e1e;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-
-    #search-input,
-    #search-form button {
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
-/* Basic Styling for Login Page */
-h2 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-#login {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-#login-button {
-    display: block;
-    width: 25%;
-    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
     font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #151414;
-    color: #fff;
-    cursor: pointer;
-    margin-top: 10px;
+    margin-right: 10px;
 }
 
-#login-button:hover {
-    background-color: #6a6868;
-}
-
-/* .register-form Fields */
-.register-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-input[type="email"],
-input[type="text"],
-button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
-#register-button {
+#search-form button {
+    padding: 10px 30px;
     background-color: #212222;
     color: white;
     border: none;
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+}
+
+#search-form button:hover {
+    background-color: #4a4b4c;
+}
+
+/* Search Results */
+#search-results {
+    margin-top: 30px;
+}
+
+.recipe-list {
+    list-style: none;
+    padding: 0;
+}
+
+.recipe-item {
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.food-photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.food-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.food-photo:hover {
+    transform: scale(1.05);
+}
+
+/* Recipe Details */
+.recipe-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.ingredients,
+.instructions {
+    flex-basis: 48%;
+}
+
+.recipe-rating {
+    margin-top: 20px;
+}
+
+.rating .fa-star {
+    font-size: 8px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.rating .fa-star.gold {
+    color: gold;
+}
+
+/* Author Info */
+.author-info {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.author-info img.profile-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+
+/* General Styling login*/
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Form Container */
+form#login {
+    width: 100%;
+    max-width: 350px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+form#login input[type="text"],
+form#login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* CSRF token styling (hidden, but maintaining structure) */
+input[name="csrfmiddlewaretoken"] {
+    display: none;
+}
+
+/* Submit Button */
+#login-button {
+    width: 100%;
+    background-color: #222323;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the login button */
+#login-button:hover {
+    background-color: #48494a;
+}
+
+/* Focus effect for input fields */
+form#login input[type="text"]:focus,
+form#login input[type="password"]:focus {
+    border-color: #4f4f50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(90, 90, 91, 0.5);
+}
+
+/* Aligning the form elements vertically */
+form#login {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+form#login label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Form Spacing */
+form#login p {
+    margin-bottom: 15px;
+}
+
+/* General Styles for Register Page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Fields */
+#register-form input[type="email"],
+#register-form input[type="text"],
+#register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#register-form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Register Button */
+#register-button {
+    background-color: #1b1c1b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 #register-button:hover {
-    background-color: #7b7c7d;
+    background-color: #4b4d4b;
 }
+
+/* Form Styling */
+.register-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Focus */
+#register-form input[type="email"]:focus,
+#register-form input[type="text"]:focus,
+#register-form input[type="password"]:focus {
+    border-color: #505150;
+    outline: none;
+    box-shadow: 0 0 5px rgba(79, 80, 79, 0.5);
+}
+
+
 
 /* Basic Styling for Upload Recipe Page */
 #upload-recipe-form {
@@ -287,123 +458,316 @@ button {
     color: gold;
 }
 
-#profile-photo-container {
-    float: left;
-    margin-right: 20px;
+
+/* General styling for the recipe list */
+#recipe-list {
+    list-style-type: none;
+    padding: 0;
 }
 
-#profile-photo-container img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+#recipe-list li {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the photo gallery */
+.photo-gallery {
+    margin-bottom: 10px;
+}
+
+.food-photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.photo-container {
+    position: relative;
+    margin: 5px;
+}
+
+.food-photo {
+    border-radius: 10px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
 }
 
-#bio-display {
-    overflow: hidden;
-    overflow-wrap: break-word;
-    max-width: 800px;
-    margin-top: 8px;
-}
+/* Delete photo button styling */
 
-#edit-bio-form textarea {
-    width: 100%;
-    max-width: 800px;
-    max-height: 400px;
-    box-sizing: border-box;
-    border-radius: 10px;
-}
-
-#save-changes-btn {
-    color: rgb(34, 35, 34);
-    background-color: green;
-    max-width: 25%;
-    border-radius: 15px;
-}
-
-#save-changes-btn:hover {
-    background-color: rgb(21, 216, 31);
-}
-
-#cancel-bio-btn {
-    color: black;
-    background-color: rgb(226, 30, 30);
-    max-width: 25%;
-    border-radius: 15px;
-}
-
-#cancel-bio-btn:hover {
-    background-color: #ef817f;
-}
-
-/* Delete Recipe Button */
-#delete-recipe-btn {
-    padding: 10px 10px;
-    width: 120px;
-    align-items: left;
+.photo-container:hover .delete-photo-form button {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #dc3545;
+    color: white;
     border: none;
+    padding: 8px 4px;
+    font-size: 12px;
     border-radius: 5px;
-    color: rgb(18, 17, 17);
-    background-color: rgb(237, 52, 52);
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.photo-container:hover .delete-photo-form button:hover {
+    background-color: #c82333;
+}
+
+/* Hide the delete button initially */
+.photo-container .delete-photo-form button {
+    display: none;
+}
+
+
+
+/* Styling for recipe details */
+.recipe-details {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 10px;
 }
 
+.recipe-info {
+    flex: 1 1 45%;
+    padding: 10px;
+}
+
+.recipe-info strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+#Upload-Photo-btn{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    background-color: #007bff;
+    max-width: 25%;
+    outline: none;
+    
+}
+#Upload-Photo-btn:hover{
+    background-color: rgb(35, 82, 236);
+
+}
+
+
+#delete-recipe-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+
+#edit-recipe-btn{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    background-color: #007bff;
+    max-width: 25%;
+}
+
+
+#edit-recipe-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
 #delete-recipe-btn:hover {
-    background-color: rgb(242, 142, 142);
+    background-color: #af1b2a;
 }
 
-#delete-profile-form {
-    opacity: 1;
-    text-align: left;
-    margin-left: 0;
+
+/* General styling for profile page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
 }
 
-/* Edit Bio Form */
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
 #profile-photo-container {
-    float: left;
-    margin-right: 20px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.profile-photo-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
+    border: 3px solid #ddd;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#delete-profile-photo-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    
+}
+
+#delete-profile-photo-btn {
+    background-color: #ed9494;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    max-width: 100px;
+}
+
+#delete-profile-photo-btn:hover {
+    background-color: #ff1a1a;
+}
+
+/* Hover effect to show delete button */
+.profile-photo-wrapper:hover #delete-profile-photo-form {
+    opacity: 1;
+}
+
+/* Bio and email styling */
+p {
+    font-size: 16px;
+    color: #555;
 }
 
 #bio-display {
-    max-width: 800px;
-    margin-top: 8px;
+    margin-top: 20px;
 }
 
-/* Responsiveness for Recipe Photos and Delete Button */
-@media (max-width: 768px) {
-    .photo-container {
-        flex-direction: column;
-        /* Stack items vertically on small screens */
-        align-items: flex-start;
-        /* Align items to the left */
-        margin: 10px 0;
-        /* Margin between photos */
+strong {
+    color: #333;
+}
+
+/* Edit Bio form styles */
+#edit-bio-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#edit-bio-form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#edit-bio-form textarea,
+#edit-bio-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#save-changes-btn{
+    background-color: green;
+    max-width: 25%;
+    border-radius: 10px;
+    color: white;
+}
+#cancel-bio-btn{
+    background-color: rgb(238, 58, 58);
+    color:white;
+    border-radius: 10px;
+    max-width: 25%;
+}
+#delete-profile-btn {
+    background-color: rgb(245, 128, 128);
+    color: white;
+    border-radius: 10px;
+    max-width: 25%;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#save-changes-btn:hover{
+    background-color: #218838;
+}
+
+#delete-profile-btn:hover{
+    background-color: rgb(230, 69, 69);
+}
+
+#cancel-bio-btn:hover {
+    background-color: rgb(217, 10, 10);
+}
+
+/* Button to edit bio */
+#edit-bio-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 25%;
+    border: none;
+    cursor: pointer;
+}
+
+#edit-bio-btn:hover {
+    background-color: #218838;
+}
+
+
+/* Media Queries for Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .profile-photo-wrapper {
+        width: 120px;
+        height: 120px;
     }
 
-    #delete-recipe-btn {
-        margin-top: 5px;
-        /* Space above the button */
-        width: auto;
-        /* Let button resize based on content */
+    #edit-bio-form textarea {
+        width: 100%;
     }
 }
-.photo-container {
-    position: relative;
-    /* Ensure position relative for absolute positioning */
-}
 
-.delete-photo-form {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 10;
-    display: none;
-    /* Initially hide the delete button */
-}
-
-.photo-container:hover .delete-photo-form {
-    display: block;
-    /* Show the delete button on hover */
-}
