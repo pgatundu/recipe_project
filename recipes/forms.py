@@ -2,11 +2,12 @@ from django import forms
 from .models import Recipe, Profile, FoodPhoto
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import modelformset_factory
 
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'ingredients', 'description', 'instructions']
+        fields = ['title', 'ingredients', 'description', 'instructions','food_photo']
         
 
 class CustomUserCreationForm(UserCreationForm):
@@ -27,6 +28,4 @@ class FoodPhotoForm(forms.ModelForm):
         model = FoodPhoto
         fields = ['image'] 
 
-from django.forms import modelformset_factory
-
-FoodPhotoFormSet = modelformset_factory(FoodPhoto, form=FoodPhotoForm, extra=6)  
+FoodPhotoFormSet = modelformset_factory(FoodPhoto, fields=('image',), extra=5, can_delete=True)  

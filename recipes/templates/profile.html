@@ -34,7 +34,7 @@
     <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="bio">Edit Bio:</label>
-        <textarea name="bio" id="bio" rows="15">{{ profile.bio }}</textarea>
+        <textarea name="bio" id="bio" rows="10">{{ profile.bio }}</textarea>
 
         <!-- Email input field -->
         <label for="email">Add Email (optional):</label>

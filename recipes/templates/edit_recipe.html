@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Edit Recipe</h2>
 
-<form id="recipe-list"method="POST">
+<form id="recipe-list-form"method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button id="Save-changes-btn" type="submit">Save Changes</button>

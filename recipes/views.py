@@ -65,13 +65,13 @@ def confirm_delete_profile(request):
 @login_required
 def upload_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         photo_formset = FoodPhotoFormSet(request.POST, request.FILES)
 
         if form.is_valid() and photo_formset.is_valid():
             recipe = form.save(commit=False)
-            recipe.user = request.user  # Ensure you associate the recipe with the current user
-            recipe.save()
+            recipe.user = request.user  # Associate the recipe with the current user
+            recipe.save()  # Save the recipe to the database
 
             # Save each photo in the formset
             for photo_form in photo_formset:
@@ -79,6 +79,7 @@ def upload_recipe(request):
                     FoodPhoto.objects.create(recipe=recipe, image=photo_form.cleaned_data['image'])
 
             return redirect('recipe_list')  # Redirect after saving the recipe and photos
+
     else:
         form = RecipeForm()
         photo_formset = FoodPhotoFormSet(queryset=FoodPhoto.objects.none())  # Empty queryset for the formset

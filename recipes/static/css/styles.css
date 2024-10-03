@@ -459,20 +459,71 @@ h2 {
 }
 
 
-/* General styling for the recipe list */
-#recipe-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#recipe-list li {
-    background-color: #f8f8f8;
+/* General styling for the edit-recipe list */
+/* Style the entire form */
+#recipe-list-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Style the form elements */
+#recipe-list-form input,
+#recipe-list-form textarea,
+#recipe-list-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the Save Changes button */
+#Save-changes-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#Save-changes-btn:hover {
+    background-color: #45a049;
+}
+
+/* Style the Cancel button */
+#edit_recipe_cancel-btn {
+    display: inline-block;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+#edit_recipe_cancel-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Style for heading */
+h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+
 
 /* Style for the photo gallery */
 .photo-gallery {
@@ -707,6 +758,14 @@ strong {
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 5px;
 }
 
 #save-changes-btn{

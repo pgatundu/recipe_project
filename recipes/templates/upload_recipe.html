@@ -4,13 +4,17 @@
 <h2>Upload Recipe</h2>
 <form id="upload-recipe-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.as_p }} <!-- Recipe form fields -->
 
     <h4>Upload Food Photos:</h4>
     {{ photo_formset.management_form }} <!-- Management form for the formset -->
+
     {% for form in photo_formset %}
     <div class="photo-upload">
         {{ form.image.label }} {{ form.image }}<br>
+        {% if form.instance.pk %} <!-- Check if the form is for an existing photo -->
+        <img src="{{ form.instance.image.url }}" alt="Uploaded Photo" class="uploaded-photo-preview"><br>
+        {% endif %}
     </div>
     {% endfor %}
 

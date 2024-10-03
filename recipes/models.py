@@ -10,6 +10,9 @@ class Recipe(models.Model):
     food_photo = models.ImageField(upload_to='food_photos/', blank=True, null=True)
     average_rating = models.FloatField(default=0.0)
 
+    def __str__(self):
+        return f"{self.title} by {self.user.username if self.user else 'Anonymous'}"
+
 class FoodPhoto(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='photos', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='food_photos/')
