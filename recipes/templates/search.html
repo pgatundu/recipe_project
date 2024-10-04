@@ -51,24 +51,29 @@
                     5.0</p>
 
                 {% if user.is_authenticated %}
+                {% if recipe.user == user %}
+                <!-- Owner of the recipe sees the average rating only -->
+                <p><strong>You cannot rate your own recipe.</strong></p>
+                {% else %}
                 <!-- Stars for rating -->
-                <p>Rate This Recipe: <span class="user-rating">{{ recipe.user_rating }}</span></p>
+                <p>Rate This Recipe:</p>
                 <div class="rating" data-recipe-id="{{ recipe.id }}">
                     {% for i in "12345" %}
                     <i class="fa fa-star{% if i <= recipe.user_rating %} gold{% endif %}" data-value="{{ i }}"></i>
                     {% endfor %}
                 </div>
+                {% endif %}
                 {% else %}
+                <!-- If not logged in, show message to log in to rate -->
                 <p>You need to <a href="{% url 'login' %}">log in</a> to rate this recipe.</p>
                 {% endif %}
-                
             </div>
 
             <!-- Author's Profile Information -->
-            <p><strong>Recipe by:{{ recipe.user.username }}</strong> </p>
+            <p><strong>Recipe by: {{ recipe.user.username }}</strong></p>
             <div class="author-info">
-                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">             
-                <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>                
+                <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
+                <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>
             </div>
 
         </li>

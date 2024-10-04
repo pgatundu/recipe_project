@@ -2,21 +2,46 @@
 
 {% block content %}
 <h2>Upload Recipe</h2>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
 <form id="upload-recipe-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }} <!-- Recipe form fields -->
+
+    <!-- Recipe Form Fields -->
+    {{ form.as_p }}
 
     <h4>Upload Food Photos:</h4>
     {{ photo_formset.management_form }} <!-- Management form for the formset -->
 
-    {% for form in photo_formset %}
+    {% for photo_form in photo_formset %}
     <div class="photo-upload">
-        {{ form.image.label }} {{ form.image }}<br>
-        {% if form.instance.pk %} <!-- Check if the form is for an existing photo -->
-        <img src="{{ form.instance.image.url }}" alt="Uploaded Photo" class="uploaded-photo-preview"><br>
+        {{ photo_form.image.label }} {{ photo_form.image }}<br>
+        {% if photo_form.instance.pk %} <!-- Check if the form is for an existing photo -->
+        <img src="{{ photo_form.instance.image.url }}" alt="Uploaded Photo" class="uploaded-photo-preview"><br>
         {% endif %}
     </div>
     {% endfor %}
+
+    <!-- Display form errors if they exist -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+            {% for error in field.errors %}
+            <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
     <button id="upload-recipe-button" type="submit">Upload</button>
 </form>

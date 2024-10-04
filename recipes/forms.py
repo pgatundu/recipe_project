@@ -18,7 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'photo','email']  # Include optional fields like 'photo' here
+        fields = ['bio', 'photo','email'] 
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself...'}),
         }
@@ -28,4 +28,4 @@ class FoodPhotoForm(forms.ModelForm):
         model = FoodPhoto
         fields = ['image'] 
 
-FoodPhotoFormSet = modelformset_factory(FoodPhoto, fields=('image',), extra=5, can_delete=True)  
+FoodPhotoFormSet = modelformset_factory(FoodPhoto, fields=('image',), extra=4, can_delete=True)  

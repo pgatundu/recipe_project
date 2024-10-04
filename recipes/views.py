@@ -68,7 +68,9 @@ def upload_recipe(request):
         form = RecipeForm(request.POST, request.FILES)
         photo_formset = FoodPhotoFormSet(request.POST, request.FILES)
 
+        # Check if both the recipe form and photo formset are valid
         if form.is_valid() and photo_formset.is_valid():
+            # Save the recipe instance
             recipe = form.save(commit=False)
             recipe.user = request.user  # Associate the recipe with the current user
             recipe.save()  # Save the recipe to the database
@@ -78,12 +80,14 @@ def upload_recipe(request):
                 if photo_form.cleaned_data.get('image'):
                     FoodPhoto.objects.create(recipe=recipe, image=photo_form.cleaned_data['image'])
 
-            return redirect('recipe_list')  # Redirect after saving the recipe and photos
+            return redirect('recipe_list')  # Redirect to the recipe list view
 
+        # If the form is invalid, you can still return the form with errors
     else:
         form = RecipeForm()
         photo_formset = FoodPhotoFormSet(queryset=FoodPhoto.objects.none())  # Empty queryset for the formset
 
+    # Render the upload recipe template with the form and formset
     return render(request, 'upload_recipe.html', {
         'form': form,
         'photo_formset': photo_formset,
@@ -100,7 +104,7 @@ def recipe_list(request):
         user_rating = RecipeRating.objects.filter(user=request.user, recipe=recipe).values_list('rating', flat=True).first()
         recipe.user_rating = user_rating if user_rating is not None else 0
 
-    # Paginate the recipes, 5 per page
+    # Paginate the recipes, 2 per page
     paginator = Paginator(recipes, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -151,27 +155,28 @@ def get_user_rating_for_recipe(user, recipe):
 
 def search_recipes(request):
     ingredient = request.GET.get('ingredient', '')
-    message = ""  # Initialize the message variable
+    message = ""
     recipes = []  # Initialize an empty list for recipes
 
     # Check if the input is valid: at least 3 letters, no numbers
-    if len(ingredient) >= 3 and re.match("^[a-zA-Z\s]*$", ingredient):   
-        
+    if len(ingredient) >= 3 and re.match("^[a-zA-Z\s]*$", ingredient):
         recipes = Recipe.objects.filter(ingredients__icontains=ingredient).order_by('title')
     else:
-        message = "Please input a valid ingredient."  
+        message = "Please input a valid ingredient."
 
     # Paginate the results if there are any recipes
-    paginator = Paginator(recipes, 3)
+    paginator = Paginator(recipes, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'search.html', {
-        'recipes': page_obj,  
+        'recipes': page_obj,
         'page_obj': page_obj,
-        'message': message,  
-        'query': ingredient,  
+        'message': message,
+        'query': ingredient,
+        'user': request.user,  # Pass the current user to the template
     })
+
 
 def rate_recipe(request, recipe_id):
     if request.method == 'POST':
@@ -192,12 +197,17 @@ def rate_recipe(request, recipe_id):
 
         # Update the average rating
         average_rating = RecipeRating.objects.filter(recipe=recipe).aggregate(models.Avg('rating'))['rating__avg'] or 0
+
+        # Round the average rating to one decimal place
+        
+        
         recipe.average_rating = average_rating
         recipe.save()
 
         return JsonResponse({'success': True, 'new_average': average_rating})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

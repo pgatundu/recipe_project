@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             const userRatingElement = this.closest('.recipe-rating').querySelector('.user-rating');
 
                             if (averageRatingElement) {
-                                averageRatingElement.textContent = data.new_average.toFixed(2); // Update with new average
+                                averageRatingElement.textContent = data.new_average.toFixed(1); // Update with new average
                             }
 
                             if (userRatingElement) {
