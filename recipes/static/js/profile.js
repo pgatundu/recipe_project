@@ -25,11 +25,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Confirm deletion of profile
-    deleteProfileButton.addEventListener('click', function () {
-        if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
-            deleteProfileForm.submit();  // Submit the form if confirmed
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteProfileButton = document.getElementById('delete-profile-btn');
+        const deleteProfileForm = document.getElementById('delete-profile-form');
+
+        deleteProfileButton.addEventListener('click', function () {
+            if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+                deleteProfileForm.submit();  // Submit the form if confirmed
+            }
+        });
     });
+
 
     // Confirm deletion of profile photo
     deleteProfilePhotoButton.addEventListener('click', function () {

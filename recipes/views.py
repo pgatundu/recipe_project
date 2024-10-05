@@ -11,15 +11,34 @@ import json
 from django.db import models
 from django.views import View
 from .models import Recipe, FoodPhoto
-
-from django.forms import modelformset_factory
 import re
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, 'index.html')
 
+def register(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        email = request.POST.get('email', '').strip()  # Get the email from the POST data
 
-@login_required
+        if user_form.is_valid():
+            user = user_form.save()
+
+            # Save email to the user's profile
+            profile, created = Profile.objects.get_or_create(user=user)
+            profile.email = email  # Set the email in the profile
+            profile.save()  # Save the profile
+
+            # Automatically log in the user after registration
+            login(request, user)
+            return redirect('profile')  # Redirect to the profile page
+    else:
+        user_form = UserCreationForm()
+
+    return render(request, 'register.html', {'form': user_form})
+
+
 @login_required
 def profile(request):
     profile = Profile.objects.get(user=request.user)
@@ -128,22 +147,6 @@ def edit_recipe(request, recipe_id):
 
     return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
 
-def register(request):
-    if request.method == 'POST':
-        user_form = UserCreationForm(request.POST)  # Assuming you're using UserCreationForm
-        email = request.POST.get('email')  # Get the email from the POST data
-        
-        if user_form.is_valid():
-            user = user_form.save()
-            # Create the Profile instance for the user and save the email
-            Profile.objects.create(user=user, email=email)
-            login(request, user)  # Automatically log in the user after registration
-            return redirect('profile')  # Redirect to the profile page
-
-    else:
-        user_form = UserCreationForm()
-    
-    return render(request, 'register.html', {'form': user_form})
 
 def get_user_rating_for_recipe(user, recipe):
     try:
@@ -199,7 +202,7 @@ def rate_recipe(request, recipe_id):
         average_rating = RecipeRating.objects.filter(recipe=recipe).aggregate(models.Avg('rating'))['rating__avg'] or 0
 
         # Round the average rating to one decimal place
-        
+        average_rating = round(average_rating, 2)
         
         recipe.average_rating = average_rating
         recipe.save()
@@ -230,29 +233,34 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
+            # Save the profile form
             form.save()
+
+            # Update the email from the POST data
+            email = request.POST.get('email', '').strip()
+            user_profile.email = email  # Update the email field in the profile
+            user_profile.save()  # Save the profile again to include the email change
+            
             return redirect('profile')  # Redirect to profile after saving
     else:
         form = ProfileForm(instance=user_profile)
 
-    return render(request, 'profile.html', {
+    return render(request, 'edit_profile.html', {  # Change to 'edit_profile.html' to show the edit form
         'profile': user_profile,  # Pass the profile object for displaying
         'form': form,
     })
 
 
-class DeleteProfileView(View):
+class DeleteProfileView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'delete_profile.html')
 
     def post(self, request):
-        if request.user.is_authenticated:
-            user_profile = request.user.profile
-            user_profile.delete()  # Deletes the Profile instance
-            request.user.delete()  # Deletes the User instance
-            logout(request)  # Log out the user
-            return redirect('register')  # Redirect to the registration page
-        return redirect('profile')
+        user_profile = request.user.profile
+        user_profile.delete()  # Deletes the Profile instance
+        request.user.delete()  # Deletes the User instance
+        logout(request)  # Log out the user
+        return redirect('register')
 
 def update_bio(request):
     if request.method == 'POST' and request.user.is_authenticated:

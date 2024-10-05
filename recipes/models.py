@@ -24,7 +24,7 @@ class RecipeRating(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
     bio = models.TextField(blank=True, null=True)
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
