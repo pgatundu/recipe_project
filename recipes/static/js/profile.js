@@ -9,46 +9,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const deleteProfilePhotoForm = document.getElementById('delete-profile-photo-form');
 
     // Show the form and hide the "Edit Bio" button when clicked
-    editBioButton.addEventListener('click', function () {
-        editBioButton.style.display = 'none';
-        bioDisplay.style.display = 'none';
-        editBioForm.style.display = 'block';
-        deleteProfileForm.style.display = 'block';  // Show the delete profile button
-    });
+    if (editBioButton) {
+        editBioButton.addEventListener('click', function () {
+            editBioButton.style.display = 'none';
+            bioDisplay.style.display = 'none';
+            editBioForm.style.display = 'block';
+            deleteProfileForm.style.display = 'block';  // Show the delete profile button
+        });
+    }
 
     // Cancel the edit and revert back to displaying the bio
-    cancelBioButton.addEventListener('click', function () {
-        editBioForm.style.display = 'none';
-        editBioButton.style.display = 'block';
-        bioDisplay.style.display = 'block';
-        deleteProfileForm.style.display = 'none';  // Hide the delete profile button
-    });
+    if (cancelBioButton) {
+        cancelBioButton.addEventListener('click', function () {
+            editBioForm.style.display = 'none';
+            editBioButton.style.display = 'block';
+            bioDisplay.style.display = 'block';
+            deleteProfileForm.style.display = 'none';  // Hide the delete profile button
+        });
+    }
 
     // Confirm deletion of profile
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteProfileButton = document.getElementById('delete-profile-btn');
-        const deleteProfileForm = document.getElementById('delete-profile-form');
-
+    if (deleteProfileButton && deleteProfileForm) {
         deleteProfileButton.addEventListener('click', function () {
-            if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+            const confirmation = confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+            if (confirmation) {
                 deleteProfileForm.submit();  // Submit the form if confirmed
             }
         });
-    });
-
+    }
 
     // Confirm deletion of profile photo
-    deleteProfilePhotoButton.addEventListener('click', function () {
-        if (confirm("Are you sure you want to delete your profile photo? This action cannot be undone.")) {
-            deleteProfilePhotoForm.submit();  // Submit the form if confirmed
-        }
-    });
-
-    // Show/hide the delete photo button
-    const threeDotsMenu = document.querySelector('.three-dots-menu');
-    const deletePhotoForm = document.querySelector('.delete-photo-form');
-
-    threeDotsMenu.addEventListener('click', function () {
-        deletePhotoForm.style.display = deletePhotoForm.style.display === 'block' ? 'none' : 'block';
-    });
+    if (deleteProfilePhotoButton && deleteProfilePhotoForm) {
+        deleteProfilePhotoButton.addEventListener('click', function () {
+            const confirmation = confirm("Are you sure you want to delete your profile photo? This action cannot be undone.");
+            if (confirmation) {
+                deleteProfilePhotoForm.submit();  // Submit the form if confirmed
+            }
+        });
+    }
 });

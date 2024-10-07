@@ -12,8 +12,7 @@
     <div class="profile-photo-wrapper">
         <img src="{{ profile.photo.url }}" alt="Profile Photo" class="profile-photo">
 
-        <form id="delete-profile-photo-form" action="{% url 'delete_profile_photo' %}" method="post"
-              class="delete-photo-form">
+        <form id="delete-profile-photo-form" action="{% url 'delete_profile_photo' %}" method="post" class="delete-photo-form">
             {% csrf_token %}
             <button type="button" id="delete-profile-photo-btn">Delete Photo</button>
         </form>
@@ -48,17 +47,13 @@
         <button type="button" id="cancel-bio-btn">Cancel</button>
     </form>
     <br>
-            <!-- Delete Profile Button -->
-    <form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post">
-            {% csrf_token %}
-            <button type="button" id="delete-profile-btn">Delete Profile</button>
-    </form>
-    
+    <!-- Delete Profile Button -->
+    <form id="delete-profile-form" action="{% url 'delete_profile' %}" method="post" style="display: none;">
+        {% csrf_token %}
+        <button type="button" id="delete-profile-btn">Delete Profile</button>
+    </form>   
 </div>
 
 <!-- Edit Bio Button -->
 <button id="edit-bio-btn">Edit Bio</button>
-
-
-
 {% endblock %}

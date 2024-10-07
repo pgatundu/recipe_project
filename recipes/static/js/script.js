@@ -4,7 +4,6 @@ function getCookie(name) {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            // Check if this cookie string begins with the name we want
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -14,36 +13,35 @@ function getCookie(name) {
     return cookieValue;
 }
 
-const csrfToken = getCookie('csrftoken');
-
 function handleLogout() {
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) {
         logoutLink.addEventListener('click', function (e) {
             e.preventDefault();
-            const csrfToken = getCookie('csrftoken'); // Get CSRF token from cookies
             const form = document.getElementById('logout-form');
-            const formData = new FormData(form);
-            formData.append('csrfmiddlewaretoken', csrfToken); // Append CSRF token manually
             fetch(form.action, {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest' // This helps Django recognize it as an AJAX request
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
-            }).then(response => {
-                if (response.ok) {
-                    window.location.reload(); // Reload the page or redirect after successful logout
-                } else {
-                    console.error('Logout failed');
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-            });
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/login/'; // Redirect to login page after successful logout
+                    } else {
+                        console.error('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     }
 }
 
+// Ensure the function is called once the page loads
+document.addEventListener('DOMContentLoaded', handleLogout);
 
 // Function to handle delete confirmation
 function confirmDelete(button) {

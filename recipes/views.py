@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RecipeForm,ProfileForm, FoodPhotoForm,FoodPhotoFormSet
-from .models import Recipe, RecipeRating
+from .models import Recipe, RecipeRating, FoodPhoto
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from django.core.paginator import Paginator
+from django.contrib import messages
 import json
 from django.db import models
 from django.views import View
-from .models import Recipe, FoodPhoto
 import re
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -80,7 +80,6 @@ def confirm_delete_profile(request):
         # request.user.delete()
         return redirect('index')
 
-
 @login_required
 def upload_recipe(request):
     if request.method == 'POST':
@@ -115,7 +114,8 @@ def upload_recipe(request):
 
 @login_required
 def recipe_list(request):
-    recipes = Recipe.objects.filter(user=request.user)
+    # Retrieve recipes, ordered by most recent (assuming you have a 'created_at' field)
+    recipes = Recipe.objects.filter(user=request.user).order_by('-created_at')
 
     # Attach user ratings to each recipe
     for recipe in recipes:

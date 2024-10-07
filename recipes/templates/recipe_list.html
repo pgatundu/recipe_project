@@ -35,7 +35,11 @@
             <!-- Right Column -->
             <div class="recipe-info">
                 <strong>Description:</strong><br>{{ recipe.description }}<br><br>
-                <strong>Instructions:</strong><br>{{ recipe.instructions }}<br>
+                <strong>Instructions:</strong><br>{{ recipe.instructions }}
+                <br><br>
+
+                <!-- Display the created_at timestamp -->
+                <p class="created-at"><strong>Posted on: {{ recipe.created_at|date:"F j, Y, g:i a" }}</strong></p>
             </div>
         </div>
 
