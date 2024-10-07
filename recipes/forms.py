@@ -8,6 +8,9 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ['title', 'ingredients', 'description', 'instructions','food_photo']
+        widgets = {
+            'photo': forms.FileInput(attrs={'required': True}),
+        }
 
 class FoodPhotoForm(forms.ModelForm):
     class Meta:

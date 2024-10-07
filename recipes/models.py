@@ -10,6 +10,7 @@ class Recipe(models.Model):
     food_photo = models.ImageField(upload_to='food_photos/', blank=True, null=True)
     average_rating = models.FloatField(default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return f"{self.title} by {self.user.username if self.user else 'Anonymous'}"
@@ -26,7 +27,7 @@ class RecipeRating(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     bio = models.TextField(blank=True, null=True)
-    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='profile_photos/', default='photos/default.jpg')
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):

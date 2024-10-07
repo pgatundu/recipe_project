@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Recipe Search{% endblock %}
 
@@ -29,9 +30,15 @@
             {% if recipe.photos.exists %}
             <div class="food-photo-grid">
                 {% for photo in recipe.photos.all %}
+                {% if photo.image %}  <!-- Check if the image exists -->
                 <img src="{{ photo.image.url }}" alt="{{ recipe.title }} Photo" class="food-photo">
+                {% else %}
+                <img src="{% static 'images/default_image.jpg' %}" alt="Default Image" class="food-photo">  <!-- Default Image -->
+                {% endif %}
                 {% endfor %}
             </div>
+            {% else %}
+            <p>No photos available for this recipe.</p>  <!-- Message if no photos -->
             {% endif %}
 
             <!-- Recipe details -->
@@ -75,7 +82,11 @@
             <!-- Author's Profile Information -->
             <p><strong>Recipe by: {{ recipe.user.username }}</strong></p>
             <div class="author-info">
+                {% if recipe.user.profile.photo %}  <!-- Check if the user's profile photo exists -->
                 <img src="{{ recipe.user.profile.photo.url }}" alt="Profile Photo" class="profile-photo">
+                {% else %}
+                <img src="{% static 'images/default_profile.jpg' %}" alt="Default Profile Photo" class="profile-photo">  <!-- Default Profile Photo -->
+                {% endif %}
                 <p><strong>Email:</strong> {{ recipe.user.profile.email|default:"No email provided." }}</p>
             </div>
 

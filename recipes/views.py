@@ -180,7 +180,6 @@ def search_recipes(request):
         'user': request.user,  # Pass the current user to the template
     })
 
-
 def rate_recipe(request, recipe_id):
     if request.method == 'POST':
         data = json.loads(request.body)
